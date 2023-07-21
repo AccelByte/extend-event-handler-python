@@ -1,8 +1,5 @@
 PIP_EXEC_PATH = bin/pip
-
-PROTO_DIR := app/proto/accelbyte-asyncapi
-PB_PY_PROTO_PATH := app/pb/accelbyte-asyncapi
-
+PROTO_DIR = app/proto
 PYTHON_EXEC_PATH = bin/python
 SOURCE_DIR = src
 TESTS_DIR = tests
@@ -11,10 +8,6 @@ VENV_DEV_DIR = venv-dev
 
 IMAGE_NAME := $(shell basename "$$(pwd)")-app
 BUILDER := grpc-plugin-server-builder
-
-PROTO_SUB_DIRS := $(shell find ${SOURCE_DIR}/$(PROTO_DIR) -name '*.proto' -printf '%h\n')
-PROTO_PACKAGES := $(subst ${SOURCE_DIR}/$(PROTO_DIR)/,,$(PROTO_SUB_DIRS))
-PROTO_PACKAGES := $(sort $(PROTO_PACKAGES))
 
 setup:
 	rm -rf ${VENV_DEV_DIR}
@@ -28,23 +21,17 @@ setup:
 			&& ${VENV_DIR}/${PIP_EXEC_PATH} install -r requirements.txt
 
 clean:
-	rm -rfv ${SOURCE_DIR}/${PB_PY_PROTO_PATH}
+	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_grpc.py
+	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2.py
+	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2.pyi
+	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2_grpc.py
 
 proto: clean
-	for pkg in $(PROTO_PACKAGES); do \
-		mkdir -p ${SOURCE_DIR}/$(PB_PY_PROTO_PATH)/$$pkg; \
-		docker run -t --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data/ rvolosatovs/protoc:4.0.0 \
-			--proto_path=${SOURCE_DIR}/$(PROTO_DIR)/$$pkg \
-			--python_out=${SOURCE_DIR}/$(PB_PY_PROTO_PATH)/$$pkg \
-			--grpc_python_out=${SOURCE_DIR}/$(PB_PY_PROTO_PATH)/$$pkg \
-			${SOURCE_DIR}/$(PROTO_DIR)/$$pkg/*.proto; \
-	done
-
-	# docker run -t --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data/ rvolosatovs/protoc:4.0.0 \
-	# 	--proto_path=${PROTO_DIR}=${SOURCE_DIR}/${PROTO_DIR} \
-	# 	--python_out=${SOURCE_DIR} \
-	# 	--grpc-python_out=${SOURCE_DIR} \
-	# 	${SOURCE_DIR}/${PROTO_DIR}/*.proto
+	docker run -t --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data/ rvolosatovs/protoc:4.0.0 \
+		--proto_path=${PROTO_DIR}=${SOURCE_DIR}/${PROTO_DIR} \
+		--python_out=${SOURCE_DIR} \
+		--grpc-python_out=${SOURCE_DIR} \
+		${SOURCE_DIR}/${PROTO_DIR}/*.proto
 
 build: proto
 

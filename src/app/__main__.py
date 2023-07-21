@@ -13,7 +13,7 @@ from typing import Optional
 
 from environs import Env
 
-from app.proto.revocation_pb2_grpc import add_RevocationServicer_to_server
+from app.proto.account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
 
 from accelbyte_grpc_plugin import App, AppGRPCInterceptorOpt, AppGRPCServiceOpt
 from accelbyte_grpc_plugin.interceptors.authorization import (
@@ -31,7 +31,10 @@ from accelbyte_grpc_plugin.opts.loki import LokiOpt
 from accelbyte_grpc_plugin.opts.prometheus import PrometheusOpt
 from accelbyte_grpc_plugin.opts.zipkin import ZipkinOpt
 
-from app.services.revocation_service import AsyncRevocationService
+from app.services.login_handler import AsyncLoginHandler
+
+import accelbyte_py_sdk
+import accelbyte_py_sdk.services.auth as auth_service
 
 DEFAULT_APP_PORT: int = 6565
 
@@ -60,8 +63,10 @@ async def main(port: int, **kwargs) -> None:
 
     with env.prefixed("AB_"):
         base_url = env("BASE_URL", "https://demo.accelbyte.io")
-        client_id = env("SECURITY_CLIENT_ID", None)
-        client_secret = env("SECURITY_CLIENT_SECRET", None)
+        client_id = env("CLIENT_ID", None)
+        client_secret = env("CLIENT_SECRET", None)
+        username = env("USERNAME", None)
+        password = env("PASSWORD", None)
         namespace = env("NAMESPACE", "accelbyte")
 
     with env.prefixed(prefix="ENABLE_"):
@@ -99,6 +104,11 @@ async def main(port: int, **kwargs) -> None:
             )
             opts.append(AppGRPCInterceptorOpt(auth_server_interceptor))
     
+    accelbyte_py_sdk.initialize()
+    _, error = auth_service.login_user(username=username, password=password)
+    if error:
+        raise Exception(error)
+    
     if env.bool("PLUGIN_GRPC_SERVER_LOGGING_ENABLED", False):
         opts.append(AppGRPCInterceptorOpt(DebugLoggingServerInterceptor(logger)))
 
@@ -107,11 +117,12 @@ async def main(port: int, **kwargs) -> None:
 
     opts.append(
         AppGRPCServiceOpt(
-            AsyncRevocationService(
-                logger=logger
+            AsyncLoginHandler(
+                logger=logger,
+                namespace=namespace
             ),
-            AsyncRevocationService.full_name,
-            add_RevocationServicer_to_server,
+            AsyncLoginHandler.full_name,
+            add_UserAuthenticationUserLoggedInServiceServicer_to_server,
         )
     )
     
