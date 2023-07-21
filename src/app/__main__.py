@@ -6,6 +6,9 @@ import asyncio
 import json
 import logging
 
+import accelbyte_py_sdk
+import accelbyte_py_sdk.services.auth as auth_service
+
 from argparse import ArgumentParser
 from enum import IntFlag
 from pathlib import Path
@@ -31,10 +34,7 @@ from accelbyte_grpc_plugin.opts.loki import LokiOpt
 from accelbyte_grpc_plugin.opts.prometheus import PrometheusOpt
 from accelbyte_grpc_plugin.opts.zipkin import ZipkinOpt
 
-from app.services.login_handler import AsyncLoginHandler
-
-import accelbyte_py_sdk
-import accelbyte_py_sdk.services.auth as auth_service
+from src.app.services.login_handler import AsyncLoginHandlerService
 
 DEFAULT_APP_PORT: int = 6565
 
@@ -65,8 +65,6 @@ async def main(port: int, **kwargs) -> None:
         base_url = env("BASE_URL", "https://demo.accelbyte.io")
         client_id = env("CLIENT_ID", None)
         client_secret = env("CLIENT_SECRET", None)
-        username = env("USERNAME", None)
-        password = env("PASSWORD", None)
         namespace = env("NAMESPACE", "accelbyte")
 
     with env.prefixed(prefix="ENABLE_"):
@@ -105,7 +103,7 @@ async def main(port: int, **kwargs) -> None:
             opts.append(AppGRPCInterceptorOpt(auth_server_interceptor))
     
     accelbyte_py_sdk.initialize()
-    _, error = auth_service.login_user(username=username, password=password)
+    _, error = auth_service.login_client(client_id=client_id, client_secret=client_secret)
     if error:
         raise Exception(error)
     
@@ -117,11 +115,11 @@ async def main(port: int, **kwargs) -> None:
 
     opts.append(
         AppGRPCServiceOpt(
-            AsyncLoginHandler(
+            AsyncLoginHandlerService(
                 logger=logger,
                 namespace=namespace
             ),
-            AsyncLoginHandler.full_name,
+            AsyncLoginHandlerService.full_name,
             add_UserAuthenticationUserLoggedInServiceServicer_to_server,
         )
     )

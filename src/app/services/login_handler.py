@@ -2,16 +2,16 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-import json
 import os
-
+import json
+import random
+import grpc
 from logging import Logger, getLogger
-from typing import Optional
+from typing import List, Optional
 
 import accelbyte_py_sdk.api.platform as platform_service
 import accelbyte_py_sdk.api.platform.models as platform_models
 
-import grpc
 from google.protobuf.json_format import MessageToDict
 from google.protobuf.empty_pb2 import Empty
 
@@ -19,13 +19,12 @@ from app.proto.account_pb2 import (
     UserLoggedIn,
     DESCRIPTOR,
 )
-
 from app.proto.account_pb2_grpc import UserAuthenticationUserLoggedInServiceServicer
 
-class AsyncLoginHandler(UserAuthenticationUserLoggedInServiceServicer):
+class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
     full_name: str = DESCRIPTOR.services_by_name["UserAuthenticationUserLoggedInService"].full_name
 
-    def __init__(self, logger: Optional[Logger] = None, namespace : str = None) -> None:
+    def __init__(self, logger: Optional[Logger], namespace) -> None:
         self.logger = logger
         self.namespace = namespace
         self.item_id_to_grant=os.environ.get('ITEM_ID_TO_GRANT')
@@ -34,12 +33,12 @@ class AsyncLoginHandler(UserAuthenticationUserLoggedInServiceServicer):
         entitlement_info, error = platform_service.grant_user_entitlement(
             namespace=self.namespace,
             user_id=user_id,
-            body=platform_models.EntitlementGrant.create(
+            body=[platform_models.EntitlementGrant.create(
                 item_id=item_id,
                 quantity=count,
                 source=platform_models.EntitlementGrantSourceEnum.REWARD,
                 item_namespace=self.namespace
-            )
+            )]
         )
         if error: return error
         if len(entitlement_info) <= 0:
@@ -51,15 +50,15 @@ class AsyncLoginHandler(UserAuthenticationUserLoggedInServiceServicer):
         self.log_payload(f'{self.OnMessage.__name__} request: %s', request)
         
         if not self.item_id_to_grant:
-            context.abort(grpc.StatusCode.INVALID_ARGUMENT, "Required envar ITEM_ID_TO_GRANT is not configured")
+            raise grpc.RpcError(grpc.StatusCode.INVALID_ARGUMENT, "Required envar ITEM_ID_TO_GRANT is not configured")
 
         try:
             error = self.grant_entitlement(request.userId, self.item_id_to_grant, 1)
         except Exception as e:
-            context.abort(grpc.StatusCode.INTERNAL, str(e))
+            raise grpc.RpcError(grpc.StatusCode.INTERNAL, str(e))
         
         response = Empty()
-        self.log_payload(f'{self.Revoke.__name__} response: %s', response)
+        self.log_payload(f'{self.OnMessage.__name__} response: %s', response)
         return response
     
     def log_payload(self, format : str, payload):
