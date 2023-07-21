@@ -1,5 +1,5 @@
 githubOwner = 'AccelByte'
-githubRepo = 'lootbox-roll-function-grpc-plugin-server-python'
+githubRepo = 'extend-event-handler-python'
 githubSsh = 'dhanarab-sdkbuild-ssh'
 
 githubUrl = "git@github.com:${githubOwner}/${githubRepo}.git"

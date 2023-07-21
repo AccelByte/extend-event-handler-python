@@ -50,12 +50,18 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
         self.log_payload(f'{self.OnMessage.__name__} request: %s', request)
         
         if not self.item_id_to_grant:
-            raise grpc.RpcError(grpc.StatusCode.INVALID_ARGUMENT, "Required envar ITEM_ID_TO_GRANT is not configured")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details("Required envar ITEM_ID_TO_GRANT is not configured")
+            return Empty()
 
         try:
             error = self.grant_entitlement(request.userId, self.item_id_to_grant, 1)
+            if error:
+                raise Exception(error)
         except Exception as e:
-            raise grpc.RpcError(grpc.StatusCode.INTERNAL, str(e))
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("Internal server error: " + str(e))
+            return Empty()
         
         response = Empty()
         self.log_payload(f'{self.OnMessage.__name__} response: %s', response)
