@@ -2,4 +2,4 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-from .lootbox_service import AsyncLootBoxServiceTestCase
+from .login_service import AsyncLoginServiceTestCase

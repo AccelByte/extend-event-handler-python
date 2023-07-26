@@ -24,10 +24,10 @@ from app.proto.account_pb2_grpc import UserAuthenticationUserLoggedInServiceServ
 class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
     full_name: str = DESCRIPTOR.services_by_name["UserAuthenticationUserLoggedInService"].full_name
 
-    def __init__(self, logger: Optional[Logger], namespace) -> None:
+    def __init__(self, logger: Optional[Logger], namespace, item_id_to_grant=None) -> None:
         self.logger = logger
         self.namespace = namespace
-        self.item_id_to_grant=os.environ.get('ITEM_ID_TO_GRANT')
+        self.item_id_to_grant = item_id_to_grant if item_id_to_grant else os.environ.get('ITEM_ID_TO_GRANT')
 
     def grant_entitlement(self, user_id : str, item_id : str, count : int):
         entitlement_info, error = platform_service.grant_user_entitlement(
