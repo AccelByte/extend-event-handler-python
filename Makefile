@@ -1,50 +1,50 @@
-PIP_EXEC_PATH = bin/pip
-PROTO_DIR = app/proto
-PYTHON_EXEC_PATH = bin/python
-SOURCE_DIR = src
-TESTS_DIR = tests
-VENV_DIR = venv
-VENV_DEV_DIR = venv-dev
-
-IMAGE_NAME := $(shell basename "$$(pwd)")-app
 BUILDER := grpc-plugin-server-builder
+IMAGE_NAME := $(shell basename "$$(pwd)")-app
 
-setup:
-	rm -rf ${VENV_DEV_DIR}
-	python3.9 -m venv ${VENV_DEV_DIR} \
-			&& ${VENV_DEV_DIR}/${PIP_EXEC_PATH} install --upgrade pip \
-			&& ${VENV_DEV_DIR}/${PIP_EXEC_PATH} install -r requirements-dev.txt
+SOURCE_DIR := src
+VENV_DIR := venv
 
-	rm -rf ${VENV_DIR}
-	python3.9 -m venv ${VENV_DIR} \
-			&& ${VENV_DIR}/${PIP_EXEC_PATH} install --upgrade pip \
-			&& ${VENV_DIR}/${PIP_EXEC_PATH} install -r requirements.txt
+PROJECT_DIR ?= $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
+.PHONY: venv test
 
 clean:
-	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_grpc.py
-	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2.py
-	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2.pyi
-	rm -f ${SOURCE_DIR}/${PROTO_DIR}/*_pb2_grpc.py
+	cd ${SOURCE_DIR}/app/proto \
+		&& rm -fv *_grpc.py *_pb2.py *_pb2.pyi *_pb2_grpc.py
 
 proto: clean
-	docker run -t --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data/ rvolosatovs/protoc:4.0.0 \
-		--proto_path=${PROTO_DIR}=${SOURCE_DIR}/${PROTO_DIR} \
-		--python_out=${SOURCE_DIR} \
-		--grpc-python_out=${SOURCE_DIR} \
-		${SOURCE_DIR}/${PROTO_DIR}/*.proto
+	docker run -t --rm -u $$(id -u):$$(id -g) -v $(PROJECT_DIR):/data/ -w /data rvolosatovs/protoc:4.0.0 \
+			--proto_path=app/proto=${SOURCE_DIR}/app/proto \
+			--python_out=${SOURCE_DIR} \
+			--grpc-python_out=${SOURCE_DIR} \
+			${SOURCE_DIR}/app/proto/*.proto
+
+venv:
+	python3.9 -m venv ${VENV_DIR} \
+			&& ${VENV_DIR}/bin/pip install -r requirements-dev.txt
 
 build: proto
 
-image:
+run: venv proto
+	docker run --rm -it -u $$(id -u):$$(id -g) -v $$(pwd):/data -w /data -e HOME=/data --entrypoint /bin/sh python:3.9-slim \
+			-c 'ln -sf $$(which python) ${VENV_DIR}/bin/python-docker \
+					&& PYTHONPATH=${SOURCE_DIR} GRPC_VERBOSITY=debug ${VENV_DIR}/bin/python-docker -m app'
+
+help: venv proto
+	docker run --rm -t -u $$(id -u):$$(id -g) -v $$(pwd):/data -w /data -e HOME=/data --entrypoint /bin/sh python:3.9-slim \
+			-c 'ln -sf $$(which python) ${VENV_DIR}/bin/python-docker \
+					&& PYTHONPATH=${SOURCE_DIR} ${VENV_DIR}/bin/python-docker -m app --help'
+
+image: proto
 	docker buildx build -t ${IMAGE_NAME} --load .
 
-imagex:
-	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use
+imagex: proto
+	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use 
 	docker buildx build -t ${IMAGE_NAME} --platform linux/arm64/v8,linux/amd64 .
 	docker buildx build -t ${IMAGE_NAME} --load .
 	docker buildx rm --keep-state $(BUILDER)
 
-imagex_push:
+imagex_push: proto
 	@test -n "$(IMAGE_TAG)" || (echo "IMAGE_TAG is not set (e.g. 'v0.1.0', 'latest')"; exit 1)
 	@test -n "$(REPO_URL)" || (echo "REPO_URL is not set"; exit 1)
 	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use
