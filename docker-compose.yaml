@@ -11,17 +11,17 @@ services:
       - "6565:6565"
       - "8080:8080"
     environment:
-      - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://host.docker.internal:9411/api/v2/spans
+      - AB_BASE_URL=${AB_BASE_URL?}
+      - AB_CLIENT_ID=${AB_CLIENT_ID?}
+      - AB_CLIENT_SECRET=${AB_CLIENT_SECRET?}
+      - AB_NAMESPACE=${AB_NAMESPACE?}
+      - ITEM_ID_TO_GRANT=${ITEM_ID_TO_GRANT?}
+      - PLUGIN_GRPC_SERVER_AUTH_ENABLED
       - LOKI_URL=http://host.docker.internal:3100/loki/api/v1/push
+      - OTEL_EXPORTER_ZIPKIN_ENDPOINT=http://host.docker.internal:9411/api/v2/spans
       - OTEL_TRACES_EXPORTER=zipkin
       - OTEL_METRICS_EXPORTER=none
       - OTEL_SERVICE_NAME=ExtendEventHandlerServerPython
-      - AB_BASE_URL
-      - AB_CLIENT_ID
-      - AB_CLIENT_SECRET
-      - AB_NAMESPACE
-      - PLUGIN_GRPC_SERVER_AUTH_ENABLED
-      - ITEM_ID_TO_GRANT
       - GRPC_VERBOSITY=debug
     extra_hosts:
       - host.docker.internal:host-gateway
