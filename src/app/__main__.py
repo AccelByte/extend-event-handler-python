@@ -19,9 +19,6 @@ from environs import Env
 from app.proto.account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
 
 from accelbyte_grpc_plugin import App, AppGRPCInterceptorOpt, AppGRPCServiceOpt
-from accelbyte_grpc_plugin.interceptors.authorization import (
-    AuthorizationServerInterceptor,
-)
 from accelbyte_grpc_plugin.interceptors.logging import (
     DebugLoggingServerInterceptor,
 )
@@ -75,30 +72,6 @@ async def main(port: int, **kwargs) -> None:
             opts.append(GRPCReflectionOpt())
         if env.bool("ZIPKIN", True):
             opts.append(ZipkinOpt())
-
-    with env.prefixed(prefix="PLUGIN_GRPC_SERVER_AUTH_"):
-        if env.bool("ENABLED", False):
-            from accelbyte_py_sdk import AccelByteSDK
-            from accelbyte_py_sdk.core import MyConfigRepository, InMemoryTokenRepository
-            from accelbyte_py_sdk.token_validation.caching import CachingTokenValidator
-
-            userId = ''
-            resource = env("RESOURCE", "ADMIN:NAMESPACE:{namespace}:USER:{userId}:ENTITLEMENT")
-            action = env.int("ACTION", int(PermissionAction.READ))
-
-            config = MyConfigRepository(
-                base_url, client_id, client_secret, namespace=namespace
-            )
-            sdk = AccelByteSDK()
-            sdk.initialize(options={"config": config, "token": InMemoryTokenRepository()})
-            token_validator = CachingTokenValidator(sdk)
-            auth_server_interceptor = AuthorizationServerInterceptor(
-                resource=resource,
-                action=action,
-                namespace=namespace,
-                token_validator=token_validator,
-            )
-            opts.append(AppGRPCInterceptorOpt(auth_server_interceptor))
     
     accelbyte_py_sdk.initialize()
     _, error = auth_service.login_client(client_id=client_id, client_secret=client_secret)
