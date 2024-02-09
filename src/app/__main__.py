@@ -30,7 +30,7 @@ from accelbyte_grpc_plugin.opts.grpc_reflection import GRPCReflectionOpt
 from accelbyte_grpc_plugin.opts.prometheus import PrometheusOpt
 from accelbyte_grpc_plugin.opts.zipkin import ZipkinOpt
 
-from src.app.services.login_handler import AsyncLoginHandlerService
+from app.services.login_handler import AsyncLoginHandlerService
 
 DEFAULT_APP_PORT: int = 6565
 
