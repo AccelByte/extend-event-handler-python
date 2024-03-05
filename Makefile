@@ -58,7 +58,7 @@ test_functional_local_hosted: proto
 		--env-file $(ENV_PATH) \
 		-e HOME=/data \
 		-u $$(id -u):$$(id -g) \
-		-v $$(pwd):/data \
+		-v $(PROJECT_DIR):/data \
 		-w /data event-handler-test-functional bash ./test/functional/test-local-hosted.sh
 
 test_functional_accelbyte_hosted: proto
@@ -68,8 +68,9 @@ test_functional_accelbyte_hosted: proto
 		--env-file $(ENV_PATH) \
 		-e HOME=/data \
 		-e DOCKER_CONFIG=/tmp/.docker \
+		-e PROJECT_DIR=$(PROJECT_DIR) \
 		-u $$(id -u):$$(id -g) \
 		--group-add $$(getent group docker | cut -d ':' -f 3) \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		-v $$(pwd):/data \
+		-v $(PROJECT_DIR):/data \
 		-w /data event-handler-test-functional bash ./test/functional/test-accelbyte-hosted.sh
