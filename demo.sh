@@ -8,6 +8,10 @@ test -n "$AB_CLIENT_ID" || (echo "AB_CLIENT_ID is not set"; exit 1)
 test -n "$AB_CLIENT_SECRET" || (echo "AB_CLIENT_SECRET is not set"; exit 1)
 test -n "$AB_NAMESPACE" || (echo "AB_NAMESPACE is not set"; exit 1)
 
+RANDOM_SUFFIX="$(echo $RANDOM | sha1sum | head -c 6)"
+
+DEMO_PREFIX="eh_demo_py_$RANDOM_SUFFIX"
+
 get_code_verifier() 
 {
   echo $RANDOM | sha256sum | cut -d ' ' -f 1   # For testing only: In reality, it needs to be secure random
@@ -24,10 +28,6 @@ api_curl()
   echo >> api_curl_http_response.out
   cat api_curl_http_response.out
 }
-
-RANDOM_PREFIX="$(get_code_verifier | cut -c1-6)"
-
-DEMO_PREFIX='eh_demo_py_'$RANDOM_PREFIX
 
 function clean_up()
 {
@@ -56,7 +56,7 @@ echo Creating player ${DEMO_PREFIX}_player@test.com ...
 USER_ID="$(api_curl "${AB_BASE_URL}/iam/v4/public/namespaces/$AB_NAMESPACE/users" \
     -H "Authorization: Bearer $ACCESS_TOKEN" \
     -H 'Content-Type: application/json' \
-    -d "{\"authType\":\"EMAILPASSWD\",\"country\":\"ID\",\"dateOfBirth\":\"1995-01-10\",\"displayName\":\"Event Handler Test Player $RANDOM_PREFIX\",\"uniqueDisplayName\":\"Cloudsave gRPC Player $RANDOM_PREFIX\",\"emailAddress\":\"${DEMO_PREFIX}_player@test.com\",\"password\":\"GFPPlmdb2-\",\"username\":\"${DEMO_PREFIX}_player\"}" | jq --raw-output .userId)"
+    -d "{\"authType\":\"EMAILPASSWD\",\"country\":\"ID\",\"dateOfBirth\":\"1995-01-10\",\"displayName\":\"Event Handler Test Player $RANDOM_SUFFIX\",\"uniqueDisplayName\":\"Cloudsave gRPC Player $RANDOM_SUFFIX\",\"emailAddress\":\"${DEMO_PREFIX}_player@test.com\",\"password\":\"GFPPlmdb2-\",\"username\":\"${DEMO_PREFIX}_player\"}" | jq --raw-output .userId)"
 
 if [ "$USER_ID" == "null" ]; then
     cat api_curl_http_response.out
