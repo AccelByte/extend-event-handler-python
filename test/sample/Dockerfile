@@ -9,5 +9,4 @@ RUN curl 'https://download.docker.com/linux/debian/dists/bookworm/pool/stable/am
         && curl 'https://download.docker.com/linux/debian/dists/bookworm/pool/stable/amd64/docker-buildx-plugin_0.11.2-1~debian.12~bookworm_amd64.deb' -o /tmp/docker-buildx-plugin.deb \
         && dpkg -i /tmp/docker-ce-cli.deb /tmp/docker-buildx-plugin.deb \
         && rm -f /tmp/docker-ce-cli.deb /tmp/docker-buildx-plugin.deb
-COPY --from=docker:dind /usr/local/bin/docker /usr/local/bin/
 COPY --from=ngrok/ngrok /bin/ngrok /bin/ngrok
