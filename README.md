@@ -79,7 +79,7 @@ Before starting, you will need the following.
    
    c. make
    
-   d. python 3.9
+   d. python 3.10
    
    e. [grpcui](https://github.com/fullstorydev/grpcui)
 
