@@ -4,10 +4,9 @@
 
 import os
 import json
-import random
 import grpc
-from logging import Logger, getLogger
-from typing import List, Optional
+from logging import Logger
+from typing import Optional
 
 import accelbyte_py_sdk.api.platform as platform_service
 import accelbyte_py_sdk.api.platform.models as platform_models
@@ -37,21 +36,17 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
         )
 
     def grant_entitlement(self, user_id: str, item_id: str, count: int):
-        entitlement_info, error = platform_service.grant_user_entitlement(
-            namespace=self.namespace,
+        fulfillment_result, error = platform_service.fulfill_item(
             user_id=user_id,
-            body=[
-                platform_models.EntitlementGrant.create(
-                    item_id=item_id,
-                    quantity=count,
-                    source=platform_models.EntitlementGrantSourceEnum.REWARD,
-                    item_namespace=self.namespace,
-                )
-            ],
+            body=platform_models.FulfillmentRequest.create(
+                quantity=count,
+                item_id=item_id,
+                source=platform_models.FulfillmentRequestSourceEnum.REWARD,
+            )
         )
         if error:
             return error
-        if len(entitlement_info) <= 0:
+        if len(fulfillment_result.entitlement_summaries) <= 0:
             raise Exception("could not grant item to user")
 
         return None
