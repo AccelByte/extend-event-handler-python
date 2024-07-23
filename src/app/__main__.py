@@ -3,7 +3,6 @@
 # and restrictions contact your company contract manager.
 
 import asyncio
-import json
 import logging
 
 import accelbyte_py_sdk
@@ -11,8 +10,6 @@ import accelbyte_py_sdk.services.auth as auth_service
 
 from argparse import ArgumentParser
 from enum import IntFlag
-from pathlib import Path
-from typing import Optional
 
 from environs import Env
 
@@ -34,11 +31,13 @@ from app.services.login_handler import AsyncLoginHandlerService
 
 DEFAULT_APP_PORT: int = 6565
 
+
 class PermissionAction(IntFlag):
     CREATE = 0b0001
     READ = 0b0010
     UPDATE = 0b0100
     DELETE = 0b1000
+
 
 async def main(port: int, **kwargs) -> None:
     env = Env(
@@ -77,6 +76,7 @@ async def main(port: int, **kwargs) -> None:
     _, error = auth_service.login_client(client_id=client_id, client_secret=client_secret)
     if error:
         raise Exception(error)
+    auth_service.LoginClientTimer(2880, repeats=-1, autostart=True)
     
     if env.bool("PLUGIN_GRPC_SERVER_LOGGING_ENABLED", False):
         opts.append(AppGRPCInterceptorOpt(DebugLoggingServerInterceptor(logger)))
@@ -98,7 +98,8 @@ async def main(port: int, **kwargs) -> None:
     logger.info("setup completed, running interceptors")
 
     await App(port, env, opts=opts).run()
-            
+
+
 def parse_args():
     parser = ArgumentParser()
 
