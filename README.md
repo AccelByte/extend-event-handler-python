@@ -234,7 +234,7 @@ This app can be tested locally using [grpcui](https://github.com/fullstorydev/gr
 
 3. Now in `grpcui`, send a sample of kafka event you are interested in. In this 
    case, we are interested in `userLoggedIn` event. So, we are using sample payload 
-   [here](https://docs.accelbyte.io/gaming-services/developers/api-events/iam-account/#message-userloggedin).
+   [here](https://docs.accelbyte.io/gaming-services/knowledge-base/api-events/iam-account/#message-userloggedin).
 
 
    ```json
@@ -274,7 +274,7 @@ This app can be tested locally using [grpcui](https://github.com/fullstorydev/gr
 
 
    > :exclamation: **If you are interested on other events:** you can find it 
-   [here](https://docs.accelbyte.io/gaming-services/developers/api-events/achievement/).
+   [here](https://docs.accelbyte.io/gaming-services/knowledge-base/api-events/achievement/).
 
  
 4. If successful, you will see in the response as follows and you can also see 
