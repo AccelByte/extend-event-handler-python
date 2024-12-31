@@ -8,7 +8,6 @@ import logging
 import accelbyte_py_sdk
 import accelbyte_py_sdk.services.auth as auth_service
 
-from argparse import ArgumentParser
 from enum import IntFlag
 
 from environs import Env
@@ -39,7 +38,7 @@ class PermissionAction(IntFlag):
     DELETE = 0b1000
 
 
-async def main(port: int, **kwargs) -> None:
+async def main(**kwargs) -> None:
     env = Env(
         eager=kwargs.get("env_eager", True),
         expand_vars=kwargs.get("env_expand_vars", False),
@@ -50,6 +49,8 @@ async def main(port: int, **kwargs) -> None:
         verbose=kwargs.get("env_verbose", False),
         override=kwargs.get("env_override", False),
     )
+
+    port: int = env.int("PORT", DEFAULT_APP_PORT)
 
     opts = []
     logger = logging.getLogger("app")
@@ -100,22 +101,5 @@ async def main(port: int, **kwargs) -> None:
     await App(port, env, opts=opts).run()
 
 
-def parse_args():
-    parser = ArgumentParser()
-
-    parser.add_argument(
-        "-p",
-        "--port",
-        default=DEFAULT_APP_PORT,
-        type=int,
-        required=False,
-        help="[P]ort",
-    )
-
-    result = vars(parser.parse_args())
-
-    return result
-
-
 if __name__ == "__main__":
-    asyncio.run(main(**parse_args()))
+    asyncio.run(main())
