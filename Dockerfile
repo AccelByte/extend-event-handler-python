@@ -2,7 +2,7 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-FROM rvolosatovs/protoc:4.1.0 AS proto
+FROM --platform=$BUILDPLATFORM rvolosatovs/protoc:4.1.0 AS proto
 WORKDIR /build
 COPY src/app/proto src/app/proto
 RUN protoc --proto_path=app/proto=src/app/proto \
@@ -11,7 +11,7 @@ RUN protoc --proto_path=app/proto=src/app/proto \
         src/app/proto/*.proto
 
 # Extend App
-FROM --platform=$BUILDPLATFORM ubuntu:22.04
+FROM ubuntu:22.04
 
 RUN apt update && \
     apt install -y python3-pip python-is-python3 && \
