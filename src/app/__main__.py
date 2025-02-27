@@ -5,84 +5,105 @@
 import asyncio
 import logging
 
-import accelbyte_py_sdk
-import accelbyte_py_sdk.services.auth as auth_service
-
-from enum import IntFlag
-
-from environs import Env
-
-from app.proto.account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
-
-from accelbyte_grpc_plugin import App, AppGRPCInterceptorOpt, AppGRPCServiceOpt
-from accelbyte_grpc_plugin.interceptors.logging import (
-    DebugLoggingServerInterceptor,
+from accelbyte_py_sdk.core import (
+    AccelByteSDK,
+    DictConfigRepository,
+    InMemoryTokenRepository,
+    HttpxHttpClient,
 )
-from accelbyte_grpc_plugin.interceptors.metrics import (
-    MetricsServerInterceptor,
-)
-from accelbyte_grpc_plugin.opts.grpc_health_checking import GRPCHealthCheckingOpt
-from accelbyte_grpc_plugin.opts.grpc_reflection import GRPCReflectionOpt
-from accelbyte_grpc_plugin.opts.prometheus import PrometheusOpt
-from accelbyte_grpc_plugin.opts.zipkin import ZipkinOpt
+from accelbyte_py_sdk.services import auth as auth_service
 
-from app.services.login_handler import AsyncLoginHandlerService
+from accelbyte_grpc_plugin import (
+    App,
+    AppGRPCInterceptorOpt,
+    AppGRPCServiceOpt,
+)
+from accelbyte_grpc_plugin.utils import instrument_sdk_http_client
+
+from .proto.account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
+from .services.login_handler import AsyncLoginHandlerService
+from .utils import create_env
 
 DEFAULT_APP_PORT: int = 6565
 
-
-class PermissionAction(IntFlag):
-    CREATE = 0b0001
-    READ = 0b0010
-    UPDATE = 0b0100
-    DELETE = 0b1000
+DEFAULT_AB_BASE_URL: str = "https://test.accelbyte.io"
+DEFAULT_AB_NAMESPACE: str = "accelbyte"
 
 
 async def main(**kwargs) -> None:
-    env = Env(
-        eager=kwargs.get("env_eager", True),
-        expand_vars=kwargs.get("env_expand_vars", False),
-    )
-    env.read_env(
-        path=kwargs.get("env_path", None),
-        recurse=kwargs.get("env_recurse", True),
-        verbose=kwargs.get("env_verbose", False),
-        override=kwargs.get("env_override", False),
-    )
+    env = create_env(**kwargs)
 
     port: int = env.int("PORT", DEFAULT_APP_PORT)
 
-    opts = []
     logger = logging.getLogger("app")
     logger.setLevel(logging.INFO)
     logger.addHandler(logging.StreamHandler())
 
+    opts = []
+
     with env.prefixed("AB_"):
-        base_url = env("BASE_URL", "https://demo.accelbyte.io")
-        client_id = env("CLIENT_ID", None)
-        client_secret = env("CLIENT_SECRET", None)
-        namespace = env("NAMESPACE", "accelbyte")
+        namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
 
     with env.prefixed(prefix="ENABLE_"):
-        if env.bool("PROMETHEUS", True):
-            opts.append(PrometheusOpt())
         if env.bool("HEALTH_CHECKING", True):
+            from accelbyte_grpc_plugin.opts.grpc_health_checking import (
+                GRPCHealthCheckingOpt,
+            )
+
             opts.append(GRPCHealthCheckingOpt())
+        if env.bool("PROMETHEUS", True):
+            from accelbyte_grpc_plugin.opts.prometheus import (
+                PrometheusOpt,
+            )
+
+            opts.append(PrometheusOpt())
         if env.bool("REFLECTION", True):
+            from accelbyte_grpc_plugin.opts.grpc_reflection import (
+                GRPCReflectionOpt,
+            )
+
             opts.append(GRPCReflectionOpt())
         if env.bool("ZIPKIN", True):
+            from accelbyte_grpc_plugin.opts.zipkin import (
+                ZipkinOpt,
+            )
+
             opts.append(ZipkinOpt())
-    
-    accelbyte_py_sdk.initialize()
-    _, error = auth_service.login_client(client_id=client_id, client_secret=client_secret)
+
+    config = DictConfigRepository(dict(env.dump()))
+    token = InMemoryTokenRepository()
+    http = HttpxHttpClient()
+    http.client.follow_redirects = True
+
+    sdk = AccelByteSDK()
+    sdk.initialize(
+        options={
+            "config": config,
+            "token": token,
+            "http": http,
+        }
+    )
+
+    instrument_sdk_http_client(sdk=sdk, logger=logger)
+
+    _, error = auth_service.login_client()
     if error:
         raise Exception(error)
+
     auth_service.LoginClientTimer(2880, repeats=-1, autostart=True)
-    
+
     if env.bool("PLUGIN_GRPC_SERVER_LOGGING_ENABLED", False):
+        from accelbyte_grpc_plugin.interceptors.logging import (
+            DebugLoggingServerInterceptor,
+        )
+
         opts.append(AppGRPCInterceptorOpt(DebugLoggingServerInterceptor(logger)))
 
     if env.bool("PLUGIN_GRPC_SERVER_METRICS_ENABLED", True):
+        from accelbyte_grpc_plugin.interceptors.metrics import (
+            MetricsServerInterceptor,
+        )
+
         opts.append(AppGRPCInterceptorOpt(MetricsServerInterceptor()))
 
     opts.append(
@@ -101,5 +122,9 @@ async def main(**kwargs) -> None:
     await App(port, env, opts=opts).run()
 
 
-if __name__ == "__main__":
+def run() -> None:
     asyncio.run(main())
+
+
+if __name__ == "__main__":
+    run()
