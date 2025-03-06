@@ -8,6 +8,8 @@ import grpc
 from logging import Logger
 from typing import Optional
 
+from accelbyte_py_sdk import AccelByteSDK
+
 import accelbyte_py_sdk.api.platform as platform_service
 import accelbyte_py_sdk.api.platform.models as platform_models
 
@@ -27,13 +29,16 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
     ].full_name
 
     def __init__(
-        self, logger: Optional[Logger], namespace, item_id_to_grant=None
+        self,
+        namespace: str,
+        item_id_to_grant: Optional[str] = None,
+        sdk: Optional[AccelByteSDK] = None,
+        logger: Optional[Logger] = None,
     ) -> None:
-        self.logger = logger
         self.namespace = namespace
-        self.item_id_to_grant = (
-            item_id_to_grant if item_id_to_grant else os.environ.get("ITEM_ID_TO_GRANT")
-        )
+        self.item_id_to_grant = item_id_to_grant or os.environ.get("ITEM_ID_TO_GRANT")
+        self.sdk = sdk
+        self.logger = logger
 
     def grant_entitlement(self, user_id: str, item_id: str, count: int):
         fulfillment_result, error = platform_service.fulfill_item(
@@ -42,7 +47,9 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
                 quantity=count,
                 item_id=item_id,
                 source=platform_models.FulfillmentRequestSourceEnum.REWARD,
-            )
+            ),
+            namespace=self.namespace,
+            sdk=self.sdk,
         )
         if error:
             return error
@@ -57,6 +64,9 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
         if not self.item_id_to_grant:
             context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
             context.set_details("Required envar ITEM_ID_TO_GRANT is not configured")
+            return Empty()
+
+        if request.namespace != self.namespace:
             return Empty()
 
         try:

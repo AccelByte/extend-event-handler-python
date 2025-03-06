@@ -109,8 +109,9 @@ async def main(**kwargs) -> None:
     opts.append(
         AppGRPCServiceOpt(
             AsyncLoginHandlerService(
+                namespace=namespace,
+                sdk=sdk,
                 logger=logger,
-                namespace=namespace
             ),
             AsyncLoginHandlerService.full_name,
             add_UserAuthenticationUserLoggedInServiceServicer_to_server,
