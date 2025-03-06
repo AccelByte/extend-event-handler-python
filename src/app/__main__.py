@@ -86,11 +86,11 @@ async def main(**kwargs) -> None:
 
     instrument_sdk_http_client(sdk=sdk, logger=logger)
 
-    _, error = auth_service.login_client()
+    _, error = auth_service.login_client(sdk=sdk)
     if error:
         raise Exception(error)
 
-    auth_service.LoginClientTimer(2880, repeats=-1, autostart=True)
+    sdk.timer = auth_service.LoginClientTimer(2880, repeats=-1, autostart=True, sdk=sdk)
 
     if env.bool("PLUGIN_GRPC_SERVER_LOGGING_ENABLED", False):
         from accelbyte_grpc_plugin.interceptors.logging import (
