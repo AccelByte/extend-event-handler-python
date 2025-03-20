@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    init: true    # Required so that the python process running inside the container can receive SIGTERM
     ports:
       - "6565:6565"
       - "8080:8080"
