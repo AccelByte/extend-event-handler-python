@@ -4,6 +4,10 @@
 
 import asyncio
 import logging
+from logging import Logger
+from typing import List
+
+from environs import Env
 
 from accelbyte_py_sdk.core import (
     AccelByteSDK,
@@ -15,6 +19,7 @@ from accelbyte_py_sdk.services import auth as auth_service
 
 from accelbyte_grpc_plugin import (
     App,
+    AppOpt,
     AppGRPCInterceptorOpt,
     AppGRPCServiceOpt,
 )
@@ -29,6 +34,14 @@ DEFAULT_APP_PORT: int = 6565
 DEFAULT_AB_BASE_URL: str = "https://test.accelbyte.io"
 DEFAULT_AB_NAMESPACE: str = "accelbyte"
 
+DEFAULT_ENABLE_HEALTH_CHECK: bool = True
+DEFAULT_ENABLE_PROMETHEUS: bool = True
+DEFAULT_ENABLE_REFLECTION: bool = True
+DEFAULT_ENABLE_ZIPKIN: bool = True
+
+DEFAULT_PLUGIN_GRPC_SERVER_LOGGING_ENABLED: bool = False
+DEFAULT_PLUGIN_GRPC_SERVER_METRICS_ENABLED: bool = True
+
 
 async def main(**kwargs) -> None:
     env = create_env(**kwargs)
@@ -38,37 +51,6 @@ async def main(**kwargs) -> None:
     logger = logging.getLogger("app")
     logger.setLevel(logging.INFO)
     logger.addHandler(logging.StreamHandler())
-
-    opts = []
-
-    with env.prefixed("AB_"):
-        namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
-
-    with env.prefixed(prefix="ENABLE_"):
-        if env.bool("HEALTH_CHECKING", True):
-            from accelbyte_grpc_plugin.opts.grpc_health_checking import (
-                GRPCHealthCheckingOpt,
-            )
-
-            opts.append(GRPCHealthCheckingOpt())
-        if env.bool("PROMETHEUS", True):
-            from accelbyte_grpc_plugin.opts.prometheus import (
-                PrometheusOpt,
-            )
-
-            opts.append(PrometheusOpt())
-        if env.bool("REFLECTION", True):
-            from accelbyte_grpc_plugin.opts.grpc_reflection import (
-                GRPCReflectionOpt,
-            )
-
-            opts.append(GRPCReflectionOpt())
-        if env.bool("ZIPKIN", True):
-            from accelbyte_grpc_plugin.opts.zipkin import (
-                ZipkinOpt,
-            )
-
-            opts.append(ZipkinOpt())
 
     config = DictConfigRepository(dict(env.dump()))
     token = InMemoryTokenRepository()
@@ -92,21 +74,11 @@ async def main(**kwargs) -> None:
 
     sdk.timer = auth_service.LoginClientTimer(2880, repeats=-1, autostart=True, sdk=sdk)
 
-    if env.bool("PLUGIN_GRPC_SERVER_LOGGING_ENABLED", False):
-        from accelbyte_grpc_plugin.interceptors.logging import (
-            DebugLoggingServerInterceptor,
-        )
+    with env.prefixed("AB_"):
+        namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
 
-        opts.append(AppGRPCInterceptorOpt(DebugLoggingServerInterceptor(logger)))
-
-    if env.bool("PLUGIN_GRPC_SERVER_METRICS_ENABLED", True):
-        from accelbyte_grpc_plugin.interceptors.metrics import (
-            MetricsServerInterceptor,
-        )
-
-        opts.append(AppGRPCInterceptorOpt(MetricsServerInterceptor()))
-
-    opts.append(
+    options = create_options(sdk=sdk, env=env, logger=logger)
+    options.append(
         AppGRPCServiceOpt(
             AsyncLoginHandlerService(
                 namespace=namespace,
@@ -117,10 +89,65 @@ async def main(**kwargs) -> None:
             add_UserAuthenticationUserLoggedInServiceServicer_to_server,
         )
     )
-    
-    logger.info("setup completed, running interceptors")
 
-    await App(port, env, opts=opts).run()
+    app = App(port=port, env=env, logger=logger, options=options)
+    await app.run()
+
+
+def create_options(sdk: AccelByteSDK, env: Env, logger: Logger) -> List[AppOpt]:
+    options: List[AppOpt] = []
+
+    with env.prefixed("AB_"):
+        namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
+
+    with env.prefixed("ENABLE_"):
+        if env.bool("HEALTH_CHECK", env.bool("HEALTH_CHECKING", DEFAULT_ENABLE_HEALTH_CHECK)):
+            from accelbyte_grpc_plugin.opts.grpc_health_checking import (
+                GRPCHealthCheckingOpt,
+            )
+
+            options.append(GRPCHealthCheckingOpt())
+        if env.bool("PROMETHEUS", DEFAULT_ENABLE_PROMETHEUS):
+            from accelbyte_grpc_plugin.opts.prometheus import (
+                PrometheusOpt
+            )
+
+            options.append(PrometheusOpt())
+        if env.bool("REFLECTION", DEFAULT_ENABLE_REFLECTION):
+            from accelbyte_grpc_plugin.opts.grpc_reflection import (
+                GRPCReflectionOpt,
+            )
+
+            options.append(GRPCReflectionOpt())
+        if env.bool("ZIPKIN", DEFAULT_ENABLE_ZIPKIN):
+            from accelbyte_grpc_plugin.opts.zipkin import (
+                ZipkinOpt
+            )
+
+            options.append(ZipkinOpt())
+
+    with env.prefixed("PLUGIN_GRPC_SERVER_"):
+        if env.bool("LOGGING_ENABLED", DEFAULT_PLUGIN_GRPC_SERVER_LOGGING_ENABLED):
+            from accelbyte_grpc_plugin.interceptors.logging import (
+                DebugLoggingServerInterceptor,
+            )
+
+            options.append(
+                AppGRPCInterceptorOpt(
+                    interceptor=DebugLoggingServerInterceptor(logger=logger)
+                )
+            )
+
+        if env.bool("METRICS_ENABLED", DEFAULT_PLUGIN_GRPC_SERVER_METRICS_ENABLED):
+            from accelbyte_grpc_plugin.interceptors.metrics import (
+                MetricsServerInterceptor,
+            )
+
+            options.append(
+                AppGRPCInterceptorOpt(interceptor=MetricsServerInterceptor())
+            )
+
+    return options
 
 
 def run() -> None:
