@@ -77,8 +77,8 @@ async def main(**kwargs) -> None:
     with env.prefixed("AB_"):
         namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
 
-    options = create_options(sdk=sdk, env=env, logger=logger)
-    options.append(
+    opts = create_options(sdk=sdk, env=env, logger=logger)
+    opts.append(
         AppGRPCServiceOpt(
             AsyncLoginHandlerService(
                 namespace=namespace,
@@ -90,7 +90,7 @@ async def main(**kwargs) -> None:
         )
     )
 
-    app = App(port=port, env=env, logger=logger, options=options)
+    app = App(port=port, env=env, logger=logger, opts=opts)
     await app.run()
 
 
