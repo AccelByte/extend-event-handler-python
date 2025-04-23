@@ -20,16 +20,13 @@ venv:
 	python$(PYTHON_VERSION) -m venv ${VENV_DIR} \
 			&& ${VENV_DIR}/bin/pip install -r requirements-dev.txt
 
-clean:
-	cd ${SOURCE_DIR}/app/proto \
-		&& rm -fv *_grpc.py *_pb2.py *_pb2.pyi *_pb2_grpc.py
-
-proto: clean
-	docker run -t --rm -u $$(id -u):$$(id -g) -v $$(pwd):/data/ -w /data rvolosatovs/protoc:4.0.0 \
-			--proto_path=app/proto=${SOURCE_DIR}/app/proto \
-			--python_out=${SOURCE_DIR} \
-			--grpc-python_out=${SOURCE_DIR} \
-			${SOURCE_DIR}/app/proto/*.proto
+proto:
+	docker run -t --rm -u $$(id -u):$$(id -g) \
+		-v $$(pwd):/build \
+		-w /build \
+		--entrypoint /bin/bash \
+		rvolosatovs/protoc:4.0.0 \
+			proto.sh
 
 build: proto
 

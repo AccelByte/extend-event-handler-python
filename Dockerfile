@@ -2,13 +2,12 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-FROM --platform=$BUILDPLATFORM rvolosatovs/protoc:4.1.0 AS proto
+# gRPC Gateway Gen
+FROM --platform=$BUILDPLATFORM rvolosatovs/protoc:4.0.0 AS grpc-gen
 WORKDIR /build
 COPY src/app/proto src/app/proto
-RUN protoc --proto_path=app/proto=src/app/proto \
-        --python_out=src \
-        --grpc-python_out=src \
-        src/app/proto/*.proto
+COPY proto.sh .
+RUN bash proto.sh
 
 # Extend App
 FROM ubuntu:22.04
@@ -31,7 +30,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN python -m pip install --no-cache-dir --force-reinstall --requirement requirements.txt
 COPY src .
-COPY --from=proto /build/src/app/proto src/app/proto
+COPY --from=grpc-gen /build/src/app/proto src/app/proto
 
 # Plugin arch gRPC server port
 EXPOSE 6565
