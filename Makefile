@@ -9,12 +9,10 @@ BUILDER := extend-builder
 
 PYTHON_VERSION := 3.10
 
-TEST_SAMPLE_CONTAINER_NAME := sample-event-handler-test
-
 SOURCE_DIR := src
 VENV_DIR := venv
 
-.PHONY: venv test
+.PHONY: venv
 
 venv:
 	python$(PYTHON_VERSION) -m venv ${VENV_DIR} \
