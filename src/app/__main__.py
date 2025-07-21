@@ -1,4 +1,4 @@
-# Copyright (c) 2023 AccelByte Inc. All Rights Reserved.
+# Copyright (c) 2025 AccelByte Inc. All Rights Reserved.
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
@@ -9,6 +9,7 @@ from typing import List
 
 from environs import Env
 
+from accelbyte_py_sdk import get_version
 from accelbyte_py_sdk.core import (
     AccelByteSDK,
     DictConfigRepository,
@@ -72,7 +73,7 @@ async def main(**kwargs) -> None:
     if error:
         raise Exception(error)
 
-    sdk.timer = auth_service.LoginClientTimer(2880, repeats=-1, autostart=True, sdk=sdk)
+    sdk.timer = auth_service.LoginClientTimer(5, refresh_rate=0.8, repeats=-1, autostart=True, sdk=sdk)
 
     with env.prefixed("AB_"):
         namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
@@ -91,6 +92,9 @@ async def main(**kwargs) -> None:
     )
 
     app = App(port=port, env=env, logger=logger, opts=opts)
+
+    logger.info(f"using {get_version(latest=True, full=True)}")
+
     await app.run()
 
 
