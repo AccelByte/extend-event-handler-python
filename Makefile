@@ -1,60 +1,29 @@
-# Copyright (c) 2023 AccelByte Inc. All Rights Reserved.
+# Copyright (c) 2025 AccelByte Inc. All Rights Reserved.
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
 SHELL := /bin/bash
 
-IMAGE_NAME := $(shell basename "$$(pwd)")-app
+IMAGE_NAME ?= $(shell basename "$$(pwd)")-app
 BUILDER := extend-builder
 
-PYTHON_VERSION := 3.10
-
-SOURCE_DIR := src
-VENV_DIR := venv
-
-.PHONY: venv
-
-venv:
-	python$(PYTHON_VERSION) -m venv ${VENV_DIR} \
-			&& ${VENV_DIR}/bin/pip install -r requirements-dev.txt
+.PHONY: proto build
 
 proto:
-	docker run -t --rm -u $$(id -u):$$(id -g) \
-		-v $$(pwd):/build \
-		-w /build \
+	docker run --tty --rm --user $$(id -u):$$(id -g) \
+		--volume $$(pwd):/build \
+		--workdir /build \
 		--entrypoint /bin/bash \
-		rvolosatovs/protoc:4.0.0 \
+		rvolosatovs/protoc:4.1.0 \
 			proto.sh
 
 build: proto
 
-run:
-	docker run --rm -it \
-			-u $$(id -u):$$(id -g) \
-			-v $$(pwd):/data \
-			-w /data \
-			-e HOME=/data \
-			--entrypoint /bin/sh \
-			python:$(PYTHON_VERSION)-slim \
-			-c 'ln -sf $$(which python) ${VENV_DIR}/bin/python-docker \
-					&& PYTHONPATH=${SOURCE_DIR} GRPC_VERBOSITY=debug ${VENV_DIR}/bin/python-docker -m app'
-
-help:
-	docker run --rm -t \
-			-u $$(id -u):$$(id -g) \
-			-v $$(pwd):/data \
-			-w /data \
-			-e HOME=/data \
-			--entrypoint \
-			/bin/sh python:$(PYTHON_VERSION)-slim \
-			-c 'ln -sf $$(which python) ${VENV_DIR}/bin/python-docker \
-					&& PYTHONPATH=${SOURCE_DIR} ${VENV_DIR}/bin/python-docker -m app --help'
-
 image:
-	docker buildx build -t ${IMAGE_NAME} --load .
+	docker build -t ${IMAGE_NAME} -f Dockerfile .
 
 imagex:
-	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use 
+	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use
 	docker buildx build -t ${IMAGE_NAME} --platform linux/amd64 .
 	docker buildx build -t ${IMAGE_NAME} --load .
 	docker buildx rm --keep-state $(BUILDER)
@@ -65,3 +34,8 @@ imagex_push:
 	docker buildx inspect $(BUILDER) || docker buildx create --name $(BUILDER) --use
 	docker buildx build -t ${REPO_URL}:${IMAGE_TAG} --platform linux/amd64 --push .
 	docker buildx rm --keep-state $(BUILDER)
+
+ngrok:
+	@which ngrok || (echo "ngrok is not installed" ; exit 1)
+	@test -n "$(NGROK_AUTHTOKEN)" || (echo "NGROK_AUTHTOKEN is not set" ; exit 1)
+	ngrok tcp 6565	# gRPC server port

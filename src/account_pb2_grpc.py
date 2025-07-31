@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from app.proto import account_pb2 as app_dot_proto_dot_account__pb2
+import account_pb2 as account__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -20,7 +20,7 @@ class UserAccountUserAccountCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountCreated.SerializeToString,
+                request_serializer=account__pb2.UserAccountCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -42,7 +42,7 @@ def add_UserAccountUserAccountCreatedServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountCreated.FromString,
+                    request_deserializer=account__pb2.UserAccountCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -70,7 +70,7 @@ class UserAccountUserAccountCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountCreated.SerializeToString,
+            account__pb2.UserAccountCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -88,7 +88,7 @@ class UserAccountUserAccountDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountDeleted.SerializeToString,
+                request_serializer=account__pb2.UserAccountDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -108,7 +108,7 @@ def add_UserAccountUserAccountDeletedServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountDeleted.FromString,
+                    request_deserializer=account__pb2.UserAccountDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -134,7 +134,7 @@ class UserAccountUserAccountDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountDeletedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountDeleted.SerializeToString,
+            account__pb2.UserAccountDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -152,7 +152,7 @@ class UserAccountUserAccountEnabledServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountEnabledService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountEnabled.SerializeToString,
+                request_serializer=account__pb2.UserAccountEnabled.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -172,7 +172,7 @@ def add_UserAccountUserAccountEnabledServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountEnabled.FromString,
+                    request_deserializer=account__pb2.UserAccountEnabled.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -198,7 +198,7 @@ class UserAccountUserAccountEnabledService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountEnabledService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountEnabled.SerializeToString,
+            account__pb2.UserAccountEnabled.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -216,7 +216,7 @@ class UserAccountUserAccountDisabledServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountDisabledService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountDisabled.SerializeToString,
+                request_serializer=account__pb2.UserAccountDisabled.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -236,7 +236,7 @@ def add_UserAccountUserAccountDisabledServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountDisabled.FromString,
+                    request_deserializer=account__pb2.UserAccountDisabled.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -262,7 +262,7 @@ class UserAccountUserAccountDisabledService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountDisabledService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountDisabled.SerializeToString,
+            account__pb2.UserAccountDisabled.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -280,7 +280,7 @@ class UserAccountUserAccountEmailUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountEmailUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountEmailUpdated.SerializeToString,
+                request_serializer=account__pb2.UserAccountEmailUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -300,7 +300,7 @@ def add_UserAccountUserAccountEmailUpdatedServiceServicer_to_server(servicer, se
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountEmailUpdated.FromString,
+                    request_deserializer=account__pb2.UserAccountEmailUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -326,7 +326,7 @@ class UserAccountUserAccountEmailUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountEmailUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountEmailUpdated.SerializeToString,
+            account__pb2.UserAccountEmailUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -344,7 +344,7 @@ class UserAccountUserAccountPasswordUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountPasswordUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountPasswordUpdated.SerializeToString,
+                request_serializer=account__pb2.UserAccountPasswordUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -364,7 +364,7 @@ def add_UserAccountUserAccountPasswordUpdatedServiceServicer_to_server(servicer,
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountPasswordUpdated.FromString,
+                    request_deserializer=account__pb2.UserAccountPasswordUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -390,7 +390,7 @@ class UserAccountUserAccountPasswordUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountPasswordUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountPasswordUpdated.SerializeToString,
+            account__pb2.UserAccountPasswordUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -408,7 +408,7 @@ class UserAccountUserAccountBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountBanned.SerializeToString,
+                request_serializer=account__pb2.UserAccountBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -428,7 +428,7 @@ def add_UserAccountUserAccountBannedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountBanned.FromString,
+                    request_deserializer=account__pb2.UserAccountBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -454,7 +454,7 @@ class UserAccountUserAccountBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountBanned.SerializeToString,
+            account__pb2.UserAccountBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -472,7 +472,7 @@ class UserAccountUserAccountUnbannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountUnbannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountUnbanned.SerializeToString,
+                request_serializer=account__pb2.UserAccountUnbanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -492,7 +492,7 @@ def add_UserAccountUserAccountUnbannedServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountUnbanned.FromString,
+                    request_deserializer=account__pb2.UserAccountUnbanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -518,7 +518,7 @@ class UserAccountUserAccountUnbannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountUnbannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountUnbanned.SerializeToString,
+            account__pb2.UserAccountUnbanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -536,7 +536,7 @@ class UserAccountUserAccountVerifiedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountVerifiedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountVerified.SerializeToString,
+                request_serializer=account__pb2.UserAccountVerified.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -556,7 +556,7 @@ def add_UserAccountUserAccountVerifiedServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountVerified.FromString,
+                    request_deserializer=account__pb2.UserAccountVerified.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -582,7 +582,7 @@ class UserAccountUserAccountVerifiedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountVerifiedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountVerified.SerializeToString,
+            account__pb2.UserAccountVerified.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -600,7 +600,7 @@ class UserAccountUserAccountLinkedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountLinkedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountLinked.SerializeToString,
+                request_serializer=account__pb2.UserAccountLinked.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -620,7 +620,7 @@ def add_UserAccountUserAccountLinkedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountLinked.FromString,
+                    request_deserializer=account__pb2.UserAccountLinked.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -646,7 +646,7 @@ class UserAccountUserAccountLinkedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountLinkedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountLinked.SerializeToString,
+            account__pb2.UserAccountLinked.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -664,7 +664,7 @@ class UserAccountUserAccountUnlinkedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountUnlinkedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountUnlinked.SerializeToString,
+                request_serializer=account__pb2.UserAccountUnlinked.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -684,7 +684,7 @@ def add_UserAccountUserAccountUnlinkedServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountUnlinked.FromString,
+                    request_deserializer=account__pb2.UserAccountUnlinked.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -710,7 +710,7 @@ class UserAccountUserAccountUnlinkedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountUnlinkedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountUnlinked.SerializeToString,
+            account__pb2.UserAccountUnlinked.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -728,7 +728,7 @@ class UserAccountUserAccountUpgradedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountUpgradedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountUpgraded.SerializeToString,
+                request_serializer=account__pb2.UserAccountUpgraded.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -748,7 +748,7 @@ def add_UserAccountUserAccountUpgradedServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountUpgraded.FromString,
+                    request_deserializer=account__pb2.UserAccountUpgraded.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -774,7 +774,7 @@ class UserAccountUserAccountUpgradedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountUpgradedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountUpgraded.SerializeToString,
+            account__pb2.UserAccountUpgraded.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -792,7 +792,7 @@ class UserAccountGameUserAccountCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountGameUserAccountCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.GameUserAccountCreated.SerializeToString,
+                request_serializer=account__pb2.GameUserAccountCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -812,7 +812,7 @@ def add_UserAccountGameUserAccountCreatedServiceServicer_to_server(servicer, ser
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.GameUserAccountCreated.FromString,
+                    request_deserializer=account__pb2.GameUserAccountCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -838,7 +838,7 @@ class UserAccountGameUserAccountCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountGameUserAccountCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.GameUserAccountCreated.SerializeToString,
+            account__pb2.GameUserAccountCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -856,7 +856,7 @@ class UserAccountThirdPartyAccountCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountThirdPartyAccountCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.ThirdPartyAccountCreated.SerializeToString,
+                request_serializer=account__pb2.ThirdPartyAccountCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -876,7 +876,7 @@ def add_UserAccountThirdPartyAccountCreatedServiceServicer_to_server(servicer, s
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.ThirdPartyAccountCreated.FromString,
+                    request_deserializer=account__pb2.ThirdPartyAccountCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -902,7 +902,7 @@ class UserAccountThirdPartyAccountCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountThirdPartyAccountCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.ThirdPartyAccountCreated.SerializeToString,
+            account__pb2.ThirdPartyAccountCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -920,7 +920,7 @@ class UserAccountUserAccountTypeChangedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAccountUserAccountTypeChangedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserAccountTypeChanged.SerializeToString,
+                request_serializer=account__pb2.UserAccountTypeChanged.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -940,7 +940,7 @@ def add_UserAccountUserAccountTypeChangedServiceServicer_to_server(servicer, ser
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserAccountTypeChanged.FromString,
+                    request_deserializer=account__pb2.UserAccountTypeChanged.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -966,7 +966,7 @@ class UserAccountUserAccountTypeChangedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAccountUserAccountTypeChangedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserAccountTypeChanged.SerializeToString,
+            account__pb2.UserAccountTypeChanged.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -984,7 +984,7 @@ class UserAuthenticationUserLoggedInServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAuthenticationUserLoggedInService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserLoggedIn.SerializeToString,
+                request_serializer=account__pb2.UserLoggedIn.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1004,7 +1004,7 @@ def add_UserAuthenticationUserLoggedInServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserLoggedIn.FromString,
+                    request_deserializer=account__pb2.UserLoggedIn.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1030,7 +1030,7 @@ class UserAuthenticationUserLoggedInService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAuthenticationUserLoggedInService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserLoggedIn.SerializeToString,
+            account__pb2.UserLoggedIn.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1048,7 +1048,7 @@ class UserAuthenticationUserLoggedOutServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAuthenticationUserLoggedOutService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserLoggedOut.SerializeToString,
+                request_serializer=account__pb2.UserLoggedOut.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1068,7 +1068,7 @@ def add_UserAuthenticationUserLoggedOutServiceServicer_to_server(servicer, serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserLoggedOut.FromString,
+                    request_deserializer=account__pb2.UserLoggedOut.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1094,7 +1094,7 @@ class UserAuthenticationUserLoggedOutService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAuthenticationUserLoggedOutService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserLoggedOut.SerializeToString,
+            account__pb2.UserLoggedOut.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1112,7 +1112,7 @@ class UserAuthenticationUserThirdPartyLoggedInServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAuthenticationUserThirdPartyLoggedInService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserThirdPartyLoggedIn.SerializeToString,
+                request_serializer=account__pb2.UserThirdPartyLoggedIn.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1132,7 +1132,7 @@ def add_UserAuthenticationUserThirdPartyLoggedInServiceServicer_to_server(servic
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserThirdPartyLoggedIn.FromString,
+                    request_deserializer=account__pb2.UserThirdPartyLoggedIn.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1158,7 +1158,7 @@ class UserAuthenticationUserThirdPartyLoggedInService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAuthenticationUserThirdPartyLoggedInService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserThirdPartyLoggedIn.SerializeToString,
+            account__pb2.UserThirdPartyLoggedIn.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1176,7 +1176,7 @@ class UserAuthenticationUserLoginFailedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAuthenticationUserLoginFailedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserLoginFailed.SerializeToString,
+                request_serializer=account__pb2.UserLoginFailed.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1196,7 +1196,7 @@ def add_UserAuthenticationUserLoginFailedServiceServicer_to_server(servicer, ser
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserLoginFailed.FromString,
+                    request_deserializer=account__pb2.UserLoginFailed.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1222,7 +1222,7 @@ class UserAuthenticationUserLoginFailedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAuthenticationUserLoginFailedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserLoginFailed.SerializeToString,
+            account__pb2.UserLoginFailed.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1240,7 +1240,7 @@ class UserAuthenticationUserThirdPartyLoginFailedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserAuthenticationUserThirdPartyLoginFailedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserThirdPartyLoginFailed.SerializeToString,
+                request_serializer=account__pb2.UserThirdPartyLoginFailed.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1260,7 +1260,7 @@ def add_UserAuthenticationUserThirdPartyLoginFailedServiceServicer_to_server(ser
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserThirdPartyLoginFailed.FromString,
+                    request_deserializer=account__pb2.UserThirdPartyLoginFailed.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1286,7 +1286,7 @@ class UserAuthenticationUserThirdPartyLoginFailedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserAuthenticationUserThirdPartyLoginFailedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserThirdPartyLoginFailed.SerializeToString,
+            account__pb2.UserThirdPartyLoginFailed.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1304,7 +1304,7 @@ class UserInformationUserInformationCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationCreated.SerializeToString,
+                request_serializer=account__pb2.UserInformationCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1324,7 +1324,7 @@ def add_UserInformationUserInformationCreatedServiceServicer_to_server(servicer,
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationCreated.FromString,
+                    request_deserializer=account__pb2.UserInformationCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1350,7 +1350,7 @@ class UserInformationUserInformationCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationCreated.SerializeToString,
+            account__pb2.UserInformationCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1368,7 +1368,7 @@ class UserInformationUserInformationDisplayNameUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationDisplayNameUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationDisplayNameUpdated.SerializeToString,
+                request_serializer=account__pb2.UserInformationDisplayNameUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1388,7 +1388,7 @@ def add_UserInformationUserInformationDisplayNameUpdatedServiceServicer_to_serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationDisplayNameUpdated.FromString,
+                    request_deserializer=account__pb2.UserInformationDisplayNameUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1414,7 +1414,7 @@ class UserInformationUserInformationDisplayNameUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationDisplayNameUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationDisplayNameUpdated.SerializeToString,
+            account__pb2.UserInformationDisplayNameUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1432,7 +1432,7 @@ class UserInformationUserInformationCountryUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationCountryUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationCountryUpdated.SerializeToString,
+                request_serializer=account__pb2.UserInformationCountryUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1452,7 +1452,7 @@ def add_UserInformationUserInformationCountryUpdatedServiceServicer_to_server(se
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationCountryUpdated.FromString,
+                    request_deserializer=account__pb2.UserInformationCountryUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1478,7 +1478,7 @@ class UserInformationUserInformationCountryUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationCountryUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationCountryUpdated.SerializeToString,
+            account__pb2.UserInformationCountryUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1496,7 +1496,7 @@ class UserInformationUserInformationLanguageUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationLanguageUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationLanguageUpdated.SerializeToString,
+                request_serializer=account__pb2.UserInformationLanguageUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1516,7 +1516,7 @@ def add_UserInformationUserInformationLanguageUpdatedServiceServicer_to_server(s
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationLanguageUpdated.FromString,
+                    request_deserializer=account__pb2.UserInformationLanguageUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1542,7 +1542,7 @@ class UserInformationUserInformationLanguageUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationLanguageUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationLanguageUpdated.SerializeToString,
+            account__pb2.UserInformationLanguageUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1560,7 +1560,7 @@ class UserInformationUserInformationDateOfBirthUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationDateOfBirthUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationDateOfBirthUpdated.SerializeToString,
+                request_serializer=account__pb2.UserInformationDateOfBirthUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1580,7 +1580,7 @@ def add_UserInformationUserInformationDateOfBirthUpdatedServiceServicer_to_serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationDateOfBirthUpdated.FromString,
+                    request_deserializer=account__pb2.UserInformationDateOfBirthUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1606,7 +1606,7 @@ class UserInformationUserInformationDateOfBirthUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationDateOfBirthUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationDateOfBirthUpdated.SerializeToString,
+            account__pb2.UserInformationDateOfBirthUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1624,7 +1624,7 @@ class UserInformationUserInformationUsernameUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserInformationUserInformationUsernameUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserInformationUsernameUpdated.SerializeToString,
+                request_serializer=account__pb2.UserInformationUsernameUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1644,7 +1644,7 @@ def add_UserInformationUserInformationUsernameUpdatedServiceServicer_to_server(s
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserInformationUsernameUpdated.FromString,
+                    request_deserializer=account__pb2.UserInformationUsernameUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1670,7 +1670,7 @@ class UserInformationUserInformationUsernameUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserInformationUserInformationUsernameUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserInformationUsernameUpdated.SerializeToString,
+            account__pb2.UserInformationUsernameUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1688,7 +1688,7 @@ class UserPermissionsUserPermissionsCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserPermissionsUserPermissionsCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserPermissionCreated.SerializeToString,
+                request_serializer=account__pb2.UserPermissionCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1708,7 +1708,7 @@ def add_UserPermissionsUserPermissionsCreatedServiceServicer_to_server(servicer,
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserPermissionCreated.FromString,
+                    request_deserializer=account__pb2.UserPermissionCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1734,7 +1734,7 @@ class UserPermissionsUserPermissionsCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserPermissionsUserPermissionsCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserPermissionCreated.SerializeToString,
+            account__pb2.UserPermissionCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1752,7 +1752,7 @@ class UserPermissionsUserPermissionsDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserPermissionsUserPermissionsDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserPermissionDeleted.SerializeToString,
+                request_serializer=account__pb2.UserPermissionDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1772,7 +1772,7 @@ def add_UserPermissionsUserPermissionsDeletedServiceServicer_to_server(servicer,
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserPermissionDeleted.FromString,
+                    request_deserializer=account__pb2.UserPermissionDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1798,7 +1798,7 @@ class UserPermissionsUserPermissionsDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserPermissionsUserPermissionsDeletedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserPermissionDeleted.SerializeToString,
+            account__pb2.UserPermissionDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1816,7 +1816,7 @@ class UserRolesUserRolesCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserRolesUserRolesCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserRoleCreated.SerializeToString,
+                request_serializer=account__pb2.UserRoleCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1836,7 +1836,7 @@ def add_UserRolesUserRolesCreatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserRoleCreated.FromString,
+                    request_deserializer=account__pb2.UserRoleCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1862,7 +1862,7 @@ class UserRolesUserRolesCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserRolesUserRolesCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserRoleCreated.SerializeToString,
+            account__pb2.UserRoleCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1880,7 +1880,7 @@ class UserRolesUserRolesDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserRolesUserRolesDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserRoleDeleted.SerializeToString,
+                request_serializer=account__pb2.UserRoleDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1900,7 +1900,7 @@ def add_UserRolesUserRolesDeletedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserRoleDeleted.FromString,
+                    request_deserializer=account__pb2.UserRoleDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1926,7 +1926,7 @@ class UserRolesUserRolesDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserRolesUserRolesDeletedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserRoleDeleted.SerializeToString,
+            account__pb2.UserRoleDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -1944,7 +1944,7 @@ class CountryAgeRestrictionCountryAgeRestrictionCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.CountryAgeRestrictionCountryAgeRestrictionCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.CountryAgeRestrictionCreated.SerializeToString,
+                request_serializer=account__pb2.CountryAgeRestrictionCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -1964,7 +1964,7 @@ def add_CountryAgeRestrictionCountryAgeRestrictionCreatedServiceServicer_to_serv
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.CountryAgeRestrictionCreated.FromString,
+                    request_deserializer=account__pb2.CountryAgeRestrictionCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -1990,7 +1990,7 @@ class CountryAgeRestrictionCountryAgeRestrictionCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.CountryAgeRestrictionCountryAgeRestrictionCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.CountryAgeRestrictionCreated.SerializeToString,
+            account__pb2.CountryAgeRestrictionCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2008,7 +2008,7 @@ class CountryAgeRestrictionCountryAgeRestrictionUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.CountryAgeRestrictionCountryAgeRestrictionUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.CountryAgeRestrictionUpdated.SerializeToString,
+                request_serializer=account__pb2.CountryAgeRestrictionUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2028,7 +2028,7 @@ def add_CountryAgeRestrictionCountryAgeRestrictionUpdatedServiceServicer_to_serv
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.CountryAgeRestrictionUpdated.FromString,
+                    request_deserializer=account__pb2.CountryAgeRestrictionUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2054,7 +2054,7 @@ class CountryAgeRestrictionCountryAgeRestrictionUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.CountryAgeRestrictionCountryAgeRestrictionUpdatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.CountryAgeRestrictionUpdated.SerializeToString,
+            account__pb2.CountryAgeRestrictionUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2072,7 +2072,7 @@ class UserTranslationsGameUserCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserTranslationsGameUserCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.GameUserCreated.SerializeToString,
+                request_serializer=account__pb2.GameUserCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2092,7 +2092,7 @@ def add_UserTranslationsGameUserCreatedServiceServicer_to_server(servicer, serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.GameUserCreated.FromString,
+                    request_deserializer=account__pb2.GameUserCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2118,7 +2118,7 @@ class UserTranslationsGameUserCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserTranslationsGameUserCreatedService/OnMessage',
-            app_dot_proto_dot_account__pb2.GameUserCreated.SerializeToString,
+            account__pb2.GameUserCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2136,7 +2136,7 @@ class UserFeatureBanChatAllBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanChatAllBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.ChatAllBanned.SerializeToString,
+                request_serializer=account__pb2.ChatAllBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2156,7 +2156,7 @@ def add_UserFeatureBanChatAllBannedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.ChatAllBanned.FromString,
+                    request_deserializer=account__pb2.ChatAllBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2182,7 +2182,7 @@ class UserFeatureBanChatAllBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanChatAllBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.ChatAllBanned.SerializeToString,
+            account__pb2.ChatAllBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2200,7 +2200,7 @@ class UserFeatureBanChatSendBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanChatSendBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.ChatSendBanned.SerializeToString,
+                request_serializer=account__pb2.ChatSendBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2220,7 +2220,7 @@ def add_UserFeatureBanChatSendBannedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.ChatSendBanned.FromString,
+                    request_deserializer=account__pb2.ChatSendBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2246,7 +2246,7 @@ class UserFeatureBanChatSendBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanChatSendBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.ChatSendBanned.SerializeToString,
+            account__pb2.ChatSendBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2264,7 +2264,7 @@ class UserFeatureBanLeaderboardBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanLeaderboardBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.LeaderboardBanned.SerializeToString,
+                request_serializer=account__pb2.LeaderboardBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2284,7 +2284,7 @@ def add_UserFeatureBanLeaderboardBannedServiceServicer_to_server(servicer, serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.LeaderboardBanned.FromString,
+                    request_deserializer=account__pb2.LeaderboardBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2310,7 +2310,7 @@ class UserFeatureBanLeaderboardBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanLeaderboardBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.LeaderboardBanned.SerializeToString,
+            account__pb2.LeaderboardBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2328,7 +2328,7 @@ class UserFeatureBanStatisticsBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanStatisticsBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.StatisticsBanned.SerializeToString,
+                request_serializer=account__pb2.StatisticsBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2348,7 +2348,7 @@ def add_UserFeatureBanStatisticsBannedServiceServicer_to_server(servicer, server
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.StatisticsBanned.FromString,
+                    request_deserializer=account__pb2.StatisticsBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2374,7 +2374,7 @@ class UserFeatureBanStatisticsBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanStatisticsBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.StatisticsBanned.SerializeToString,
+            account__pb2.StatisticsBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2392,7 +2392,7 @@ class UserFeatureBanOrderAndPaymentBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanOrderAndPaymentBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.OrderAndPaymentBanned.SerializeToString,
+                request_serializer=account__pb2.OrderAndPaymentBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2412,7 +2412,7 @@ def add_UserFeatureBanOrderAndPaymentBannedServiceServicer_to_server(servicer, s
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.OrderAndPaymentBanned.FromString,
+                    request_deserializer=account__pb2.OrderAndPaymentBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2438,7 +2438,7 @@ class UserFeatureBanOrderAndPaymentBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanOrderAndPaymentBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.OrderAndPaymentBanned.SerializeToString,
+            account__pb2.OrderAndPaymentBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2456,7 +2456,7 @@ class UserFeatureBanMatchmakingBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanMatchmakingBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.MatchmakingBanned.SerializeToString,
+                request_serializer=account__pb2.MatchmakingBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2476,7 +2476,7 @@ def add_UserFeatureBanMatchmakingBannedServiceServicer_to_server(servicer, serve
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.MatchmakingBanned.FromString,
+                    request_deserializer=account__pb2.MatchmakingBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2502,7 +2502,7 @@ class UserFeatureBanMatchmakingBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanMatchmakingBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.MatchmakingBanned.SerializeToString,
+            account__pb2.MatchmakingBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2520,7 +2520,7 @@ class UserFeatureBanUgcCreateUpdateBannedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.UserFeatureBanUgcCreateUpdateBannedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UgcCreateUpdateBanned.SerializeToString,
+                request_serializer=account__pb2.UgcCreateUpdateBanned.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2540,7 +2540,7 @@ def add_UserFeatureBanUgcCreateUpdateBannedServiceServicer_to_server(servicer, s
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UgcCreateUpdateBanned.FromString,
+                    request_deserializer=account__pb2.UgcCreateUpdateBanned.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2566,7 +2566,7 @@ class UserFeatureBanUgcCreateUpdateBannedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.UserFeatureBanUgcCreateUpdateBannedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UgcCreateUpdateBanned.SerializeToString,
+            account__pb2.UgcCreateUpdateBanned.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2584,7 +2584,7 @@ class LobbyUserDisconnectRequestedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.LobbyUserDisconnectRequestedService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.UserDisconnectRequested.SerializeToString,
+                request_serializer=account__pb2.UserDisconnectRequested.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2604,7 +2604,7 @@ def add_LobbyUserDisconnectRequestedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.UserDisconnectRequested.FromString,
+                    request_deserializer=account__pb2.UserDisconnectRequested.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2630,7 +2630,7 @@ class LobbyUserDisconnectRequestedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.LobbyUserDisconnectRequestedService/OnMessage',
-            app_dot_proto_dot_account__pb2.UserDisconnectRequested.SerializeToString,
+            account__pb2.UserDisconnectRequested.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -2648,7 +2648,7 @@ class DeletionAccountGdprGdprRequestDataDeletionResponseServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.account.v1.DeletionAccountGdprGdprRequestDataDeletionResponseService/OnMessage',
-                request_serializer=app_dot_proto_dot_account__pb2.GdprRequestDataDeletionResponse.SerializeToString,
+                request_serializer=account__pb2.GdprRequestDataDeletionResponse.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -2668,7 +2668,7 @@ def add_DeletionAccountGdprGdprRequestDataDeletionResponseServiceServicer_to_ser
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_account__pb2.GdprRequestDataDeletionResponse.FromString,
+                    request_deserializer=account__pb2.GdprRequestDataDeletionResponse.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -2694,7 +2694,7 @@ class DeletionAccountGdprGdprRequestDataDeletionResponseService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.account.v1.DeletionAccountGdprGdprRequestDataDeletionResponseService/OnMessage',
-            app_dot_proto_dot_account__pb2.GdprRequestDataDeletionResponse.SerializeToString,
+            account__pb2.GdprRequestDataDeletionResponse.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

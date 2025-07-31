@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from app.proto import client_pb2 as app_dot_proto_dot_client__pb2
+import client_pb2 as client__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -20,7 +20,7 @@ class ClientClientCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientClientCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientCreated.SerializeToString,
+                request_serializer=client__pb2.ClientCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -42,7 +42,7 @@ def add_ClientClientCreatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientCreated.FromString,
+                    request_deserializer=client__pb2.ClientCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -70,7 +70,7 @@ class ClientClientCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientClientCreatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientCreated.SerializeToString,
+            client__pb2.ClientCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -88,7 +88,7 @@ class ClientClientDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientClientDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientDeleted.SerializeToString,
+                request_serializer=client__pb2.ClientDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -108,7 +108,7 @@ def add_ClientClientDeletedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientDeleted.FromString,
+                    request_deserializer=client__pb2.ClientDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -134,7 +134,7 @@ class ClientClientDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientClientDeletedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientDeleted.SerializeToString,
+            client__pb2.ClientDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -152,7 +152,7 @@ class ClientClientUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientClientUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientUpdated.SerializeToString,
+                request_serializer=client__pb2.ClientUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -172,7 +172,7 @@ def add_ClientClientUpdatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientUpdated.FromString,
+                    request_deserializer=client__pb2.ClientUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -198,7 +198,7 @@ class ClientClientUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientClientUpdatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientUpdated.SerializeToString,
+            client__pb2.ClientUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -216,7 +216,7 @@ class ClientThirdPartyClientThirdPartyCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientThirdPartyCreated.SerializeToString,
+                request_serializer=client__pb2.ClientThirdPartyCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -236,7 +236,7 @@ def add_ClientThirdPartyClientThirdPartyCreatedServiceServicer_to_server(service
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientThirdPartyCreated.FromString,
+                    request_deserializer=client__pb2.ClientThirdPartyCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -262,7 +262,7 @@ class ClientThirdPartyClientThirdPartyCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyCreatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientThirdPartyCreated.SerializeToString,
+            client__pb2.ClientThirdPartyCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -280,7 +280,7 @@ class ClientThirdPartyClientThirdPartyDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientThirdPartyDeleted.SerializeToString,
+                request_serializer=client__pb2.ClientThirdPartyDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -300,7 +300,7 @@ def add_ClientThirdPartyClientThirdPartyDeletedServiceServicer_to_server(service
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientThirdPartyDeleted.FromString,
+                    request_deserializer=client__pb2.ClientThirdPartyDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -326,7 +326,7 @@ class ClientThirdPartyClientThirdPartyDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyDeletedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientThirdPartyDeleted.SerializeToString,
+            client__pb2.ClientThirdPartyDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -344,7 +344,7 @@ class ClientThirdPartyClientThirdPartyUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientThirdPartyUpdated.SerializeToString,
+                request_serializer=client__pb2.ClientThirdPartyUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -364,7 +364,7 @@ def add_ClientThirdPartyClientThirdPartyUpdatedServiceServicer_to_server(service
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientThirdPartyUpdated.FromString,
+                    request_deserializer=client__pb2.ClientThirdPartyUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -390,7 +390,7 @@ class ClientThirdPartyClientThirdPartyUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientThirdPartyClientThirdPartyUpdatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientThirdPartyUpdated.SerializeToString,
+            client__pb2.ClientThirdPartyUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -408,7 +408,7 @@ class ClientPermissionsClientPermissionsCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientPermissionCreated.SerializeToString,
+                request_serializer=client__pb2.ClientPermissionCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -428,7 +428,7 @@ def add_ClientPermissionsClientPermissionsCreatedServiceServicer_to_server(servi
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientPermissionCreated.FromString,
+                    request_deserializer=client__pb2.ClientPermissionCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -454,7 +454,7 @@ class ClientPermissionsClientPermissionsCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsCreatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientPermissionCreated.SerializeToString,
+            client__pb2.ClientPermissionCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -472,7 +472,7 @@ class ClientPermissionsClientPermissionsDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientPermissionDeleted.SerializeToString,
+                request_serializer=client__pb2.ClientPermissionDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -492,7 +492,7 @@ def add_ClientPermissionsClientPermissionsDeletedServiceServicer_to_server(servi
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientPermissionDeleted.FromString,
+                    request_deserializer=client__pb2.ClientPermissionDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -518,7 +518,7 @@ class ClientPermissionsClientPermissionsDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsDeletedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientPermissionDeleted.SerializeToString,
+            client__pb2.ClientPermissionDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -536,7 +536,7 @@ class ClientPermissionsClientPermissionsUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_client__pb2.ClientPermissionUpdated.SerializeToString,
+                request_serializer=client__pb2.ClientPermissionUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -556,7 +556,7 @@ def add_ClientPermissionsClientPermissionsUpdatedServiceServicer_to_server(servi
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_client__pb2.ClientPermissionUpdated.FromString,
+                    request_deserializer=client__pb2.ClientPermissionUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -582,7 +582,7 @@ class ClientPermissionsClientPermissionsUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.client.v1.ClientPermissionsClientPermissionsUpdatedService/OnMessage',
-            app_dot_proto_dot_client__pb2.ClientPermissionUpdated.SerializeToString,
+            client__pb2.ClientPermissionUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

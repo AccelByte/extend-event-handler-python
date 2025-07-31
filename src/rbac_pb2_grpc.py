@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from app.proto import rbac_pb2 as app_dot_proto_dot_rbac__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import rbac_pb2 as rbac__pb2
 
 
 class RoleRoleCreatedServiceStub(object):
@@ -20,7 +20,7 @@ class RoleRoleCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleRoleCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleCreated.SerializeToString,
+                request_serializer=rbac__pb2.RoleCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -42,7 +42,7 @@ def add_RoleRoleCreatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleCreated.FromString,
+                    request_deserializer=rbac__pb2.RoleCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -70,7 +70,7 @@ class RoleRoleCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleRoleCreatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleCreated.SerializeToString,
+            rbac__pb2.RoleCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -88,7 +88,7 @@ class RoleRoleDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleRoleDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleDeleted.SerializeToString,
+                request_serializer=rbac__pb2.RoleDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -108,7 +108,7 @@ def add_RoleRoleDeletedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleDeleted.FromString,
+                    request_deserializer=rbac__pb2.RoleDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -134,7 +134,7 @@ class RoleRoleDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleRoleDeletedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleDeleted.SerializeToString,
+            rbac__pb2.RoleDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -152,7 +152,7 @@ class RoleRoleUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleRoleUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleUpdated.SerializeToString,
+                request_serializer=rbac__pb2.RoleUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -172,7 +172,7 @@ def add_RoleRoleUpdatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleUpdated.FromString,
+                    request_deserializer=rbac__pb2.RoleUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -198,7 +198,7 @@ class RoleRoleUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleRoleUpdatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleUpdated.SerializeToString,
+            rbac__pb2.RoleUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -216,7 +216,7 @@ class RolePermissionsRolePermissionCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RolePermissionCreated.SerializeToString,
+                request_serializer=rbac__pb2.RolePermissionCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -236,7 +236,7 @@ def add_RolePermissionsRolePermissionCreatedServiceServicer_to_server(servicer, 
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RolePermissionCreated.FromString,
+                    request_deserializer=rbac__pb2.RolePermissionCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -262,7 +262,7 @@ class RolePermissionsRolePermissionCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionCreatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RolePermissionCreated.SerializeToString,
+            rbac__pb2.RolePermissionCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -280,7 +280,7 @@ class RolePermissionsRolePermissionDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RolePermissionDeleted.SerializeToString,
+                request_serializer=rbac__pb2.RolePermissionDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -300,7 +300,7 @@ def add_RolePermissionsRolePermissionDeletedServiceServicer_to_server(servicer, 
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RolePermissionDeleted.FromString,
+                    request_deserializer=rbac__pb2.RolePermissionDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -326,7 +326,7 @@ class RolePermissionsRolePermissionDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionDeletedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RolePermissionDeleted.SerializeToString,
+            rbac__pb2.RolePermissionDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -344,7 +344,7 @@ class RolePermissionsRolePermissionUpdatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionUpdatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RolePermissionUpdated.SerializeToString,
+                request_serializer=rbac__pb2.RolePermissionUpdated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -364,7 +364,7 @@ def add_RolePermissionsRolePermissionUpdatedServiceServicer_to_server(servicer, 
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RolePermissionUpdated.FromString,
+                    request_deserializer=rbac__pb2.RolePermissionUpdated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -390,7 +390,7 @@ class RolePermissionsRolePermissionUpdatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RolePermissionsRolePermissionUpdatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RolePermissionUpdated.SerializeToString,
+            rbac__pb2.RolePermissionUpdated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -408,7 +408,7 @@ class RoleManagerRoleManagerCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleManagerRoleManagerCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleManagerCreated.SerializeToString,
+                request_serializer=rbac__pb2.RoleManagerCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -428,7 +428,7 @@ def add_RoleManagerRoleManagerCreatedServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleManagerCreated.FromString,
+                    request_deserializer=rbac__pb2.RoleManagerCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -454,7 +454,7 @@ class RoleManagerRoleManagerCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleManagerRoleManagerCreatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleManagerCreated.SerializeToString,
+            rbac__pb2.RoleManagerCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -472,7 +472,7 @@ class RoleManagerRoleManagerDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleManagerRoleManagerDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleManagerDeleted.SerializeToString,
+                request_serializer=rbac__pb2.RoleManagerDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -492,7 +492,7 @@ def add_RoleManagerRoleManagerDeletedServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleManagerDeleted.FromString,
+                    request_deserializer=rbac__pb2.RoleManagerDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -518,7 +518,7 @@ class RoleManagerRoleManagerDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleManagerRoleManagerDeletedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleManagerDeleted.SerializeToString,
+            rbac__pb2.RoleManagerDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -536,7 +536,7 @@ class RoleMemberRoleMemberCreatedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleMemberRoleMemberCreatedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleMemberCreated.SerializeToString,
+                request_serializer=rbac__pb2.RoleMemberCreated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -556,7 +556,7 @@ def add_RoleMemberRoleMemberCreatedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleMemberCreated.FromString,
+                    request_deserializer=rbac__pb2.RoleMemberCreated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -582,7 +582,7 @@ class RoleMemberRoleMemberCreatedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleMemberRoleMemberCreatedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleMemberCreated.SerializeToString,
+            rbac__pb2.RoleMemberCreated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -600,7 +600,7 @@ class RoleMemberRoleMemberDeletedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.rbac.v1.RoleMemberRoleMemberDeletedService/OnMessage',
-                request_serializer=app_dot_proto_dot_rbac__pb2.RoleMemberDeleted.SerializeToString,
+                request_serializer=rbac__pb2.RoleMemberDeleted.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -620,7 +620,7 @@ def add_RoleMemberRoleMemberDeletedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_rbac__pb2.RoleMemberDeleted.FromString,
+                    request_deserializer=rbac__pb2.RoleMemberDeleted.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -646,7 +646,7 @@ class RoleMemberRoleMemberDeletedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.rbac.v1.RoleMemberRoleMemberDeletedService/OnMessage',
-            app_dot_proto_dot_rbac__pb2.RoleMemberDeleted.SerializeToString,
+            rbac__pb2.RoleMemberDeleted.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

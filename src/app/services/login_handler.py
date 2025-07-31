@@ -16,11 +16,11 @@ import accelbyte_py_sdk.api.platform.models as platform_models
 from google.protobuf.json_format import MessageToDict
 from google.protobuf.empty_pb2 import Empty
 
-from app.proto.account_pb2 import (
+from account_pb2 import (
     UserLoggedIn,
     DESCRIPTOR,
 )
-from app.proto.account_pb2_grpc import UserAuthenticationUserLoggedInServiceServicer
+from account_pb2_grpc import UserAuthenticationUserLoggedInServiceServicer
 
 
 class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
@@ -70,7 +70,7 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
             return Empty()
 
         try:
-            error = self.grant_entitlement(request.userId, self.item_id_to_grant, 1)
+            error = self.grant_entitlement(request.user_id, self.item_id_to_grant, 1)
             if error:
                 raise Exception(error)
         except Exception as e:

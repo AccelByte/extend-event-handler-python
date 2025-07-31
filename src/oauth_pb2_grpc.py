@@ -2,8 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from app.proto import oauth_pb2 as app_dot_proto_dot_oauth__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+import oauth_pb2 as oauth__pb2
 
 
 class OauthRequestOauthRequestAuthorizedServiceStub(object):
@@ -20,7 +20,7 @@ class OauthRequestOauthRequestAuthorizedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.oauth.v1.OauthRequestOauthRequestAuthorizedService/OnMessage',
-                request_serializer=app_dot_proto_dot_oauth__pb2.OauthRequestAuthorized.SerializeToString,
+                request_serializer=oauth__pb2.OauthRequestAuthorized.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -42,7 +42,7 @@ def add_OauthRequestOauthRequestAuthorizedServiceServicer_to_server(servicer, se
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_oauth__pb2.OauthRequestAuthorized.FromString,
+                    request_deserializer=oauth__pb2.OauthRequestAuthorized.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -70,7 +70,7 @@ class OauthRequestOauthRequestAuthorizedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.oauth.v1.OauthRequestOauthRequestAuthorizedService/OnMessage',
-            app_dot_proto_dot_oauth__pb2.OauthRequestAuthorized.SerializeToString,
+            oauth__pb2.OauthRequestAuthorized.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -88,7 +88,7 @@ class OauthTokenOauthTokenGeneratedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.oauth.v1.OauthTokenOauthTokenGeneratedService/OnMessage',
-                request_serializer=app_dot_proto_dot_oauth__pb2.OauthTokenGenerated.SerializeToString,
+                request_serializer=oauth__pb2.OauthTokenGenerated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -108,7 +108,7 @@ def add_OauthTokenOauthTokenGeneratedServiceServicer_to_server(servicer, server)
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_oauth__pb2.OauthTokenGenerated.FromString,
+                    request_deserializer=oauth__pb2.OauthTokenGenerated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -134,7 +134,7 @@ class OauthTokenOauthTokenGeneratedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.oauth.v1.OauthTokenOauthTokenGeneratedService/OnMessage',
-            app_dot_proto_dot_oauth__pb2.OauthTokenGenerated.SerializeToString,
+            oauth__pb2.OauthTokenGenerated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -152,7 +152,7 @@ class OauthTokenOauthTokenRevokedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.oauth.v1.OauthTokenOauthTokenRevokedService/OnMessage',
-                request_serializer=app_dot_proto_dot_oauth__pb2.OauthTokenRevoked.SerializeToString,
+                request_serializer=oauth__pb2.OauthTokenRevoked.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -172,7 +172,7 @@ def add_OauthTokenOauthTokenRevokedServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_oauth__pb2.OauthTokenRevoked.FromString,
+                    request_deserializer=oauth__pb2.OauthTokenRevoked.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -198,7 +198,7 @@ class OauthTokenOauthTokenRevokedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.oauth.v1.OauthTokenOauthTokenRevokedService/OnMessage',
-            app_dot_proto_dot_oauth__pb2.OauthTokenRevoked.SerializeToString,
+            oauth__pb2.OauthTokenRevoked.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -216,7 +216,7 @@ class OauthThirdPartyRequestOauthThirdPartyRequestAuthorizedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.oauth.v1.OauthThirdPartyRequestOauthThirdPartyRequestAuthorizedService/OnMessage',
-                request_serializer=app_dot_proto_dot_oauth__pb2.OauthThirdPartyRequestAuthorized.SerializeToString,
+                request_serializer=oauth__pb2.OauthThirdPartyRequestAuthorized.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -236,7 +236,7 @@ def add_OauthThirdPartyRequestOauthThirdPartyRequestAuthorizedServiceServicer_to
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_oauth__pb2.OauthThirdPartyRequestAuthorized.FromString,
+                    request_deserializer=oauth__pb2.OauthThirdPartyRequestAuthorized.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -262,7 +262,7 @@ class OauthThirdPartyRequestOauthThirdPartyRequestAuthorizedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.oauth.v1.OauthThirdPartyRequestOauthThirdPartyRequestAuthorizedService/OnMessage',
-            app_dot_proto_dot_oauth__pb2.OauthThirdPartyRequestAuthorized.SerializeToString,
+            oauth__pb2.OauthThirdPartyRequestAuthorized.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -280,7 +280,7 @@ class OauthThirdPartyTokenOauthThirdPartyTokenGeneratedServiceStub(object):
         """
         self.OnMessage = channel.unary_unary(
                 '/accelbyte.iam.oauth.v1.OauthThirdPartyTokenOauthThirdPartyTokenGeneratedService/OnMessage',
-                request_serializer=app_dot_proto_dot_oauth__pb2.OauthThirdPartyTokenGenerated.SerializeToString,
+                request_serializer=oauth__pb2.OauthThirdPartyTokenGenerated.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
 
@@ -300,7 +300,7 @@ def add_OauthThirdPartyTokenOauthThirdPartyTokenGeneratedServiceServicer_to_serv
     rpc_method_handlers = {
             'OnMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.OnMessage,
-                    request_deserializer=app_dot_proto_dot_oauth__pb2.OauthThirdPartyTokenGenerated.FromString,
+                    request_deserializer=oauth__pb2.OauthThirdPartyTokenGenerated.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -326,7 +326,7 @@ class OauthThirdPartyTokenOauthThirdPartyTokenGeneratedService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/accelbyte.iam.oauth.v1.OauthThirdPartyTokenOauthThirdPartyTokenGeneratedService/OnMessage',
-            app_dot_proto_dot_oauth__pb2.OauthThirdPartyTokenGenerated.SerializeToString,
+            oauth__pb2.OauthThirdPartyTokenGenerated.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

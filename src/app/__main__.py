@@ -26,7 +26,7 @@ from accelbyte_grpc_plugin import (
 )
 from accelbyte_grpc_plugin.utils import instrument_sdk_http_client
 
-from .proto.account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
+from account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
 from .services.login_handler import AsyncLoginHandlerService
 from .utils import create_env
 
