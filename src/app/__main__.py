@@ -26,8 +26,12 @@ from accelbyte_grpc_plugin import (
 )
 from accelbyte_grpc_plugin.utils import instrument_sdk_http_client
 
-from account_pb2_grpc import add_UserAuthenticationUserLoggedInServiceServicer_to_server
+from account_pb2_grpc import (
+    add_UserAuthenticationUserLoggedInServiceServicer_to_server,
+    add_UserAuthenticationUserThirdPartyLoggedInServiceServicer_to_server,
+)
 from .services.login_handler import AsyncLoginHandlerService
+from .services.third_party_login_handler import AsyncThirdPartyLoginHandlerService
 from .utils import create_env
 
 DEFAULT_APP_PORT: int = 6565
@@ -88,6 +92,17 @@ async def main(**kwargs) -> None:
             ),
             AsyncLoginHandlerService.full_name,
             add_UserAuthenticationUserLoggedInServiceServicer_to_server,
+        )
+    )
+    opts.append(
+        AppGRPCServiceOpt(
+            AsyncThirdPartyLoginHandlerService(
+                namespace=namespace,
+                sdk=sdk,
+                logger=logger,
+            ),
+            AsyncThirdPartyLoginHandlerService.full_name,
+            add_UserAuthenticationUserThirdPartyLoggedInServiceServicer_to_server,
         )
     )
 

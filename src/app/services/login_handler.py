@@ -10,11 +10,10 @@ from typing import Optional
 
 from accelbyte_py_sdk import AccelByteSDK
 
-import accelbyte_py_sdk.api.platform as platform_service
-import accelbyte_py_sdk.api.platform.models as platform_models
-
-from google.protobuf.json_format import MessageToDict
 from google.protobuf.empty_pb2 import Empty
+from google.protobuf.json_format import MessageToDict
+
+from .entitlement import grant_entitlement
 
 from account_pb2 import (
     UserLoggedIn,
@@ -40,24 +39,6 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
         self.sdk = sdk
         self.logger = logger
 
-    def grant_entitlement(self, user_id: str, item_id: str, count: int):
-        fulfillment_result, error = platform_service.fulfill_item(
-            user_id=user_id,
-            body=platform_models.FulfillmentRequest.create(
-                quantity=count,
-                item_id=item_id,
-                source=platform_models.FulfillmentRequestSourceEnum.REWARD,
-            ),
-            namespace=self.namespace,
-            sdk=self.sdk,
-        )
-        if error:
-            return error
-        if len(fulfillment_result.entitlement_summaries) <= 0:
-            raise Exception("could not grant item to user")
-
-        return None
-
     async def OnMessage(self, request: UserLoggedIn, context):
         self.log_payload(f"{self.OnMessage.__name__} request: %s", request)
 
@@ -70,7 +51,9 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
             return Empty()
 
         try:
-            error = self.grant_entitlement(request.user_id, self.item_id_to_grant, 1)
+            error = grant_entitlement(
+                request.user_id, self.item_id_to_grant, 1, self.namespace, self.sdk
+            )
             if error:
                 raise Exception(error)
         except Exception as e:
