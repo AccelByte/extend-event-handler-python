@@ -2,7 +2,6 @@
 # This is licensed software from AccelByte Inc, for limitations
 # and restrictions contact your company contract manager.
 
-import os
 import json
 import grpc
 from logging import Logger
@@ -30,29 +29,24 @@ class AsyncThirdPartyLoginHandlerService(UserAuthenticationUserThirdPartyLoggedI
     def __init__(
         self,
         namespace: str,
-        item_id_to_grant: Optional[str] = None,
+        item_id_to_grant: str,
         sdk: Optional[AccelByteSDK] = None,
         logger: Optional[Logger] = None,
     ) -> None:
         self.namespace = namespace
-        self.item_id_to_grant = item_id_to_grant or os.environ.get("ITEM_ID_TO_GRANT")
+        self.item_id_to_grant = item_id_to_grant
         self.sdk = sdk
         self.logger = logger
 
     async def OnMessage(self, request: UserThirdPartyLoggedIn, context):
         self.log_payload(f"{self.OnMessage.__name__} request: %s", request)
 
-        if not self.item_id_to_grant:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details("Required envar ITEM_ID_TO_GRANT is not configured")
-            return Empty()
-
         if request.namespace != self.namespace:
             return Empty()
 
         try:
             error = grant_entitlement(
-                request.user_id, self.item_id_to_grant, 1, self.namespace, self.sdk
+                self.sdk, self.namespace, request.user_id, self.item_id_to_grant
             )
             if error:
                 raise Exception(error)

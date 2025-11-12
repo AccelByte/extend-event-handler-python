@@ -4,6 +4,7 @@
 
 import asyncio
 import logging
+import sys
 from logging import Logger
 from typing import List
 
@@ -82,11 +83,17 @@ async def main(**kwargs) -> None:
     with env.prefixed("AB_"):
         namespace = env.str("NAMESPACE", DEFAULT_AB_NAMESPACE)
 
+    item_id_to_grant = env.str("ITEM_ID_TO_GRANT", None)
+    if not item_id_to_grant:
+        logger.error("ITEM_ID_TO_GRANT environment variable is required")
+        sys.exit(1)
+
     opts = create_options(sdk=sdk, env=env, logger=logger)
     opts.append(
         AppGRPCServiceOpt(
             AsyncLoginHandlerService(
                 namespace=namespace,
+                item_id_to_grant=item_id_to_grant,
                 sdk=sdk,
                 logger=logger,
             ),
@@ -98,6 +105,7 @@ async def main(**kwargs) -> None:
         AppGRPCServiceOpt(
             AsyncThirdPartyLoginHandlerService(
                 namespace=namespace,
+                item_id_to_grant=item_id_to_grant,
                 sdk=sdk,
                 logger=logger,
             ),

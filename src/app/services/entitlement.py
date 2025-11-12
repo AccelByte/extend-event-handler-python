@@ -11,16 +11,15 @@ import accelbyte_py_sdk.api.platform.models as platform_models
 
 
 def grant_entitlement(
+    sdk: AccelByteSDK,
+    namespace: str,
     user_id: str,
     item_id: str,
-    count: int,
-    namespace: str,
-    sdk: Optional[AccelByteSDK] = None,
 ) -> Optional[Exception]:
     fulfillment_result, error = platform_service.fulfill_item(
         user_id=user_id,
         body=platform_models.FulfillmentRequest.create(
-            quantity=count,
+            quantity=1,
             item_id=item_id,
             source=platform_models.FulfillmentRequestSourceEnum.REWARD,
         ),
