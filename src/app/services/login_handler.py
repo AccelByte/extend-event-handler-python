@@ -44,16 +44,12 @@ class AsyncLoginHandlerService(UserAuthenticationUserLoggedInServiceServicer):
         if request.namespace != self.namespace:
             return Empty()
 
-        try:
-            error = grant_entitlement(
-                self.sdk, self.namespace, request.user_id, self.item_id_to_grant
-            )
-            if error:
-                raise Exception(error)
-        except Exception as e:
-            context.set_code(grpc.StatusCode.INTERNAL)
-            context.set_details("Internal server error: " + str(e))
-            return Empty()
+        error = grant_entitlement(
+            self.sdk, self.namespace, request.user_id, self.item_id_to_grant
+        )
+        if error:
+            await context.abort(grpc.StatusCode.INTERNAL, f"Internal server error: {str(error)}")
+            return  # Never reached, but needed for type checking
 
         response = Empty()
         self.log_payload(f"{self.OnMessage.__name__} response: %s", response)

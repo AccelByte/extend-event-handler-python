@@ -29,7 +29,7 @@ def grant_entitlement(
     if error:
         return error
     if len(fulfillment_result.entitlement_summaries) <= 0:
-        raise Exception("could not grant item to user")
+        return Exception("could not grant item to user")
 
     return None
 
